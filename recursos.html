@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recursos — ICHS Legal & Advisors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D2B6E; --navy-mid: #0A2260; --navy-light: #163580;
+    --gold: #FFFFFF; --gold-light: #E8EEFF; --gold-pale: #C8D4F0;
+    --ivory: #FFFFFF; --slate: #7A9CD4; --slate-light: #A8C0E8; --white: #FFFFFF;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Barlow', sans-serif;
+    --font-cond: 'Barlow Condensed', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { background: var(--navy); color: var(--ivory); font-family: var(--font-sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--navy); } ::-webkit-scrollbar-thumb { background: var(--gold); }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 4rem; height: 72px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,15,30,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.15); transition: all 0.3s; }
+  nav.scrolled { height: 60px; border-bottom-color: rgba(255,255,255,0.3); }
+  .nav-logo { display: flex; align-items: baseline; gap: 0.5rem; text-decoration: none; }
+  .nav-logo-mark { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; }
+  .nav-logo-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.3); margin: 0 0.6rem; align-self: center; }
+  .nav-logo-sub { font-family: var(--font-cond); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; color: var(--slate-light); text-transform: uppercase; line-height: 1.2; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--font-cond); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-light); text-decoration: none; transition: color 0.25s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform 0.25s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+  .nav-cta { font-family: var(--font-cond); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); background: var(--white); border: none; padding: 0.6rem 1.6rem; cursor: pointer; transition: background 0.25s, transform 0.2s; }
+  .nav-cta:hover { background: var(--gold-pale); transform: translateY(-1px); }
+
+  /* UTILITIES */
+  .gold-rule { width: 48px; height: 1px; background: var(--gold); display: inline-block; vertical-align: middle; margin-right: 1rem; }
+  .section-label { font-family: var(--font-cond); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; margin-bottom: 1.5rem; }
+  .section { padding: 7rem 4rem; }
+  .section-header { max-width: 700px; margin-bottom: 4rem; }
+  .section-header h2 { font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.2; color: var(--ivory); margin-bottom: 1.25rem; }
+  .section-header h2 em { font-style: italic; color: var(--gold-light); }
+  .section-header p { font-size: 1rem; color: var(--slate-light); line-height: 1.8; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, transparent); margin: 0 4rem; }
+  .pt-nav { padding-top: 72px; }
+  .btn-primary { font-family: var(--font-cond); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); background: var(--white); border: none; padding: 1rem 2.5rem; cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden; }
+  .btn-primary::after { content: ''; position: absolute; inset: 0; background: rgba(13,43,110,0.1); transform: translateX(-100%); transition: transform 0.3s; }
+  .btn-primary:hover::after { transform: translateX(0); }
+  .btn-ghost { font-family: var(--font-cond); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate-light); background: transparent; border: 1px solid rgba(168,192,232,0.3); padding: 1rem 2.5rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block; }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* PAGE HERO */
+  .page-hero { min-height: 50vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 4rem 5rem; position: relative; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .page-hero-bg { position: absolute; inset: 0; background: linear-gradient(165deg, transparent 40%, rgba(255,255,255,0.03) 100%), radial-gradient(ellipse at 70% 20%, rgba(255,255,255,0.05) 0%, transparent 60%), linear-gradient(180deg, #0D2B6E 0%, #071640 100%); }
+  .page-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 80px 80px; mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 40%, transparent 100%); }
+  .page-hero-content { position: relative; max-width: 860px; animation: fadeIn 0.5s ease; }
+  .page-hero-eyebrow { font-family: var(--font-cond); font-size: 0.72rem; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .page-hero-eyebrow::before { content: ''; display: inline-block; width: 40px; height: 1px; background: var(--gold); }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.08; color: var(--ivory); margin-bottom: 1.5rem; }
+  .page-hero h1 em { font-style: italic; color: var(--gold-light); }
+  .page-hero-desc { font-size: 1rem; font-weight: 300; color: var(--slate-light); max-width: 560px; line-height: 1.75; margin-bottom: 2.5rem; }
+  .header-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--slate-light); border: 1px solid rgba(168,192,232,0.2); padding: 0.35rem 0.85rem; }
+
+  /* FILTERS */
+  .resources-filters { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .filter-btn { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-light); background: transparent; border: 1px solid rgba(168,192,232,0.2); padding: 0.5rem 1.2rem; cursor: pointer; transition: all 0.2s; }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(255,255,255,0.05); }
+
+  /* RESOURCES GRID */
+  .resources-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.1); }
+  .resource-card { background: var(--navy-mid); padding: 2.5rem 2rem; position: relative; transition: background 0.3s; cursor: pointer; display: flex; flex-direction: column; }
+  .resource-card:hover { background: var(--navy-light); }
+  .resource-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.35s; }
+  .resource-card:hover::before { transform: scaleX(1); }
+  .resource-type { font-family: var(--font-cond); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .resource-card h4 { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 400; color: var(--ivory); line-height: 1.35; margin-bottom: 0.75rem; flex: 1; }
+  .resource-card p { font-size: 0.8rem; color: var(--slate); line-height: 1.65; margin-bottom: 1.5rem; }
+  .resource-meta { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--slate); margin-top: auto; }
+  .resource-arrow { font-size: 1rem; color: var(--gold); margin-top: 0.75rem; opacity: 0; transition: opacity 0.2s, transform 0.2s; transform: translateX(-4px); }
+  .resource-card:hover .resource-arrow { opacity: 1; transform: translateX(0); }
+
+  /* FEATURED RESOURCE */
+  .resource-featured { background: var(--navy-light); border: 1px solid rgba(255,255,255,0.12); padding: 3.5rem; margin-bottom: 1px; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; overflow: hidden; transition: background 0.3s; cursor: pointer; }
+  .resource-featured:hover { background: rgba(22,53,128,0.9); }
+  .resource-featured::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--gold); }
+  .resource-featured-label { font-family: var(--font-cond); font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .resource-featured h3 { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; color: var(--ivory); line-height: 1.25; margin-bottom: 1rem; }
+  .resource-featured h3 em { font-style: italic; color: var(--gold-light); }
+  .resource-featured p { font-size: 0.875rem; color: var(--slate-light); line-height: 1.8; }
+  .resource-featured-meta { display: flex; flex-direction: column; gap: 1.5rem; }
+  .resource-meta-item { padding: 1.25rem; border: 1px solid rgba(255,255,255,0.08); }
+  .resource-meta-item strong { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.3rem; }
+  .resource-meta-item span { font-size: 0.82rem; color: var(--slate-light); }
+
+  /* NEWSLETTER STRIP */
+  .newsletter-strip { background: var(--navy-mid); border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 3rem 4rem; display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; }
+  .newsletter-strip h3 { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 300; color: var(--ivory); }
+  .newsletter-strip h3 em { font-style: italic; color: var(--gold-light); }
+  .newsletter-strip p { font-size: 0.82rem; color: var(--slate); margin-top: 0.4rem; }
+  .newsletter-form { display: flex; gap: 0; }
+  .newsletter-input { font-family: var(--font-sans); font-size: 0.82rem; color: var(--ivory); background: rgba(255,255,255,0.05); border: 1px solid rgba(168,192,232,0.2); border-right: none; padding: 0.9rem 1.5rem; width: 280px; outline: none; transition: border-color 0.2s; }
+  .newsletter-input::placeholder { color: var(--slate); }
+  .newsletter-input:focus { border-color: rgba(255,255,255,0.4); }
+  .newsletter-btn { font-family: var(--font-cond); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); background: var(--white); border: none; padding: 0.9rem 1.5rem; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+  .newsletter-btn:hover { background: var(--gold-pale); }
+
+  /* CTA BAND */
+  .cta-band { background: var(--navy-light); border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 4rem; display: flex; align-items: center; justify-content: space-between; gap: 3rem; }
+  .cta-band h3 { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; color: var(--ivory); max-width: 500px; line-height: 1.3; }
+  .cta-band h3 em { font-style: italic; color: var(--gold-light); }
+
+  /* FOOTER */
+  footer { background: #071640; border-top: 1px solid rgba(255,255,255,0.1); padding: 4rem; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 2rem; }
+  .footer-brand p { font-size: 0.82rem; color: var(--slate); line-height: 1.75; margin-top: 1rem; max-width: 280px; }
+  .footer-col h5 { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a, .footer-col ul li span { font-size: 0.82rem; color: var(--slate); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--ivory); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--slate); }
+  .footer-legal { display: flex; gap: 2rem; }
+  .footer-legal a { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--slate); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .footer-legal a:hover { color: var(--gold); }
+
+  @media (max-width: 1100px) {
+    nav, .section, .newsletter-strip, .cta-band { padding-left: 2rem; padding-right: 2rem; }
+    .page-hero { padding: 0 2rem 4rem; }
+    footer { padding: 3rem 2rem; }
+    .resources-grid { grid-template-columns: 1fr 1fr; }
+    .resource-featured { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem; }
+    .newsletter-strip { grid-template-columns: 1fr; gap: 1.5rem; }
+    .newsletter-input { width: 100%; }
+    .section-divider { margin: 0 2rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .cta-band { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .resources-grid { grid-template-columns: 1fr; }
+    .newsletter-form { flex-direction: column; }
+    .newsletter-input { border-right: 1px solid rgba(168,192,232,0.2); border-bottom: none; width: 100%; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-mark">ICHS</span>
+    <div class="nav-logo-sep"></div>
+    <span class="nav-logo-sub">Legal &<br>Advisors</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="servicios.html">Servicios</a></li>
+    <li><a href="metodologia.html">Metodología</a></li>
+    <li><a href="mercados.html">Mercados</a></li>
+    <li><a href="sobre-ichs.html">Sobre ICHS</a></li>
+    <li><a href="recursos.html" class="active">Recursos</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.location='contacto.html'">Consulta Estratégica</button>
+</nav>
+
+<div class="page-hero pt-nav">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-eyebrow">Recursos</div>
+    <h1>Inteligencia regulatoria para <em>profesionales del sector</em></h1>
+    <p class="page-hero-desc">Publicaciones, análisis y guías desarrolladas por el equipo de ICHS para mantener informados a operadores, inversores y ejecutivos del ecosistema digital en LATAM.</p>
+    <div class="header-chips">
+      <span class="chip">Informes</span>
+      <span class="chip">Análisis comparados</span>
+      <span class="chip">Guías prácticas</span>
+      <span class="chip">Alertas regulatorias</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-label"><span class="gold-rule"></span>Publicaciones recientes</div>
+    <h2>Análisis de primera línea sobre <em>regulación de activos digitales</em></h2>
+    <p>Cada publicación es elaborada por abogados de ICHS con base en investigación directa, no en síntesis de fuentes secundarias.</p>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="resource-featured">
+    <div>
+      <div class="resource-featured-label">⬡ Informe Destacado · Marzo 2025</div>
+      <h3>Marco MiCA y su impacto en <em>operadores LATAM</em> con presencia europea</h3>
+      <p>Análisis completo del Reglamento de Mercados de Criptoactivos europeo y sus implicaciones para exchanges y emisores latinoamericanos que operan en la Unión Europea. Incluye tabla comparativa de requisitos por tipo de proveedor y hoja de ruta de adaptación recomendada para operadores LATAM.</p>
+    </div>
+    <div class="resource-featured-meta">
+      <div class="resource-meta-item">
+        <strong>Extensión</strong>
+        <span>48 páginas</span>
+      </div>
+      <div class="resource-meta-item">
+        <strong>Audiencia</strong>
+        <span>Exchanges, emisores de tokens, custodios</span>
+      </div>
+      <div class="resource-meta-item">
+        <strong>Jurisdicciones cubiertas</strong>
+        <span>UE · España · Alemania · Francia + impacto LATAM</span>
+      </div>
+      <button class="btn-primary" style="margin-top:0.5rem">Solicitar Acceso →</button>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="resources-filters" style="margin-top:3rem">
+    <button class="filter-btn active" onclick="filterResources('all', this)">Todos</button>
+    <button class="filter-btn" onclick="filterResources('informe', this)">Informes</button>
+    <button class="filter-btn" onclick="filterResources('analisis', this)">Análisis</button>
+    <button class="filter-btn" onclick="filterResources('guia', this)">Guías</button>
+    <button class="filter-btn" onclick="filterResources('alerta', this)">Alertas</button>
+  </div>
+
+  <div class="resources-grid" id="resourcesGrid">
+    <div class="resource-card" data-type="guia">
+      <div class="resource-type">Guía Práctica</div>
+      <h4>Guía de licenciamiento VASP en México: proceso paso a paso</h4>
+      <p>Proceso detallado para obtener autorización como Institución de Tecnología Financiera ante la CNBV, incluyendo documentación requerida y plazos esperados.</p>
+      <div class="resource-meta">Febrero 2025 · 32 páginas</div>
+      <div class="resource-arrow">→</div>
+    </div>
+    <div class="resource-card" data-type="analisis">
+      <div class="resource-type">Análisis</div>
+      <h4>Tokenización de deuda privada en LATAM: marco legal comparado</h4>
+      <p>Estudio comparativo del tratamiento legal de tokens de deuda privada en México, Brasil, Colombia y Argentina, con implicaciones para emisores e inversores.</p>
+      <div class="resource-meta">Enero 2025 · 56 páginas</div>
+      <div class="resource-arrow">→</div>
+    </div>
+    <div class="resource-card" data-type="alerta">
+      <div class="resource-type">Alerta Regulatoria</div>
+      <h4>Brasil: nuevas exigencias del Banco Central para prestadoras VASP en 2025</h4>
+      <p>Análisis de las resoluciones BCB 4282 y 4283 que establecen requisitos de capital mínimo y gobernanza para proveedores de servicios de activos virtuales.</p>
+      <div class="resource-meta">Diciembre 2024 · Alerta · 12 páginas</div>
+      <div class="resource-arrow">→</div>
+    </div>
+    <div class="resource-card" data-type="guia">
+      <div class="resource-type">Guía Práctica</div>
+      <h4>AML/CFT para exchanges cripto: implementación de programa completo</h4>
+      <p>Framework práctico para desarrollar, implementar y mantener un programa robusto de prevención de lavado de activos bajo estándares GAFI/FATF.</p>
+      <div class="resource-meta">Noviembre 2024 · 68 páginas</div>
+      <div class="resource-arrow">→</div>
+    </div>
+    <div class="resource-card" data-type="analisis">
+      <div class="resource-type">Análisis</div>
+      <h4>DeFi y su relación con el derecho de valores: perspectiva LATAM</h4>
+      <p>Cómo los reguladores latinoamericanos interpretan los protocolos DeFi bajo sus marcos de derecho de valores y las implicaciones para operadores.</p>
+      <div class="resource-meta">Octubre 2024 · 40 páginas</div>
+      <div class="resource-arrow">→</div>
+    </div>
+    <div class="resource-card" data-type="informe">
+      <div class="resource-type">Informe</div>
+      <h4>Licencia PSAD en El Salvador: todo lo que necesita saber antes de aplicar</h4>
+      <p>Guía completa del proceso de licenciamiento ante la CNAD: requisitos de capital, estructura societaria, manual AML, plazos y costos referenciales actualizados.</p>
+      <div class="resource-meta">Septiembre 2024 · 36 páginas</div>
+      <div class="resource-arrow">→</div>
+    </div>
+    <div class="resource-card" data-type="alerta">
+      <div class="resource-type">Alerta Regulatoria</div>
+      <h4>Colombia: UIAF amplía obligaciones de reporte para intermediarios cripto</h4>
+      <p>Análisis de las nuevas directrices de la Unidad de Información y Análisis Financiero para proveedores de servicios de activos virtuales operando en Colombia.</p>
+      <div class="resource-meta">Agosto 2024 · Alerta · 8 páginas</div>
+      <div class="resource-arrow">→</div>
+    </div>
+    <div class="resource-card" data-type="analisis">
+      <div class="resource-type">Análisis</div>
+      <h4>Fundaciones de interés privado en Panamá para custodia de activos digitales</h4>
+      <p>Marco legal de las fundaciones panameñas como vehículo de protección patrimonial para holdings de activos digitales, con análisis de ventajas y limitaciones.</p>
+      <div class="resource-meta">Julio 2024 · 28 páginas</div>
+      <div class="resource-arrow">→</div>
+    </div>
+    <div class="resource-card" data-type="guia">
+      <div class="resource-type">Guía Práctica</div>
+      <h4>Constitución de LLC en Florida para proyectos cripto latinoamericanos</h4>
+      <p>Proceso paso a paso para incorporar una LLC en Florida: documentación, EIN, by laws, apertura bancaria y consideraciones fiscales para residentes LATAM.</p>
+      <div class="resource-meta">Junio 2024 · 24 páginas</div>
+      <div class="resource-arrow">→</div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter-strip">
+  <div>
+    <h3>Reciba alertas regulatorias <em>antes que el mercado</em></h3>
+    <p>Boletín quincenal con análisis de cambios regulatorios relevantes para operadores de activos digitales en LATAM. Sin spam. Solo inteligencia accionable.</p>
+  </div>
+  <div>
+    <div class="newsletter-form">
+      <input class="newsletter-input" type="email" placeholder="su@email.com">
+      <button class="newsletter-btn" onclick="subscribeNewsletter()">Suscribirse →</button>
+    </div>
+  </div>
+</div>
+
+<div class="cta-band">
+  <h3>¿Necesita un análisis <em>específico para su proyecto</em>?</h3>
+  <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+    <button class="btn-primary" onclick="window.location='contacto.html'">Solicitar Consulta →</button>
+    <button class="btn-ghost" onclick="window.location='servicios.html'">Ver Servicios</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo-mark">ICHS</div>
+      <p>Firma especializada en arquitectura legal para activos digitales en América Latina. Rigor institucional, precisión técnica, presencia regional.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Publicaciones</h5>
+      <ul>
+        <li><a href="recursos.html">Informes</a></li>
+        <li><a href="recursos.html">Análisis comparados</a></li>
+        <li><a href="recursos.html">Guías prácticas</a></li>
+        <li><a href="recursos.html">Alertas regulatorias</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Firma</h5>
+      <ul>
+        <li><a href="sobre-ichs.html">Sobre ICHS</a></li>
+        <li><a href="metodologia.html">Metodología</a></li>
+        <li><a href="mercados.html">Mercados</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><span>NIT 901822786-6</span></li>
+        <li><span>Barranquilla, Colombia</span></li>
+        <li><span>contacto@ichs.legal</span></li>
+        <li><a href="#">Política de Privacidad</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 ICHS Legal & Advisors S.A.S. — Iriarte · Chivetta · Sandoval. Todos los derechos reservados.</span>
+    <div class="footer-legal">
+      <a href="#">Privacidad</a>
+      <a href="#">Aviso Legal</a>
+      <a href="#">Términos de Uso</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+  function filterResources(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.resource-card').forEach(card => {
+      card.style.display = (type === 'all' || card.dataset.type === type) ? '' : 'none';
+    });
+  }
+  function subscribeNewsletter() {
+    const input = document.querySelector('.newsletter-input');
+    if (!input.value.includes('@')) { input.style.borderColor = 'rgba(139,32,32,0.6)'; return; }
+    input.style.borderColor = '';
+    input.value = '';
+    input.placeholder = 'Suscripción registrada ✓';
+  }
+</script>
+</body>
+</html>

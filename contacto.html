@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contacto — ICHS Legal & Advisors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D2B6E; --navy-mid: #0A2260; --navy-light: #163580;
+    --gold: #FFFFFF; --gold-light: #E8EEFF; --gold-pale: #C8D4F0;
+    --ivory: #FFFFFF; --slate: #7A9CD4; --slate-light: #A8C0E8; --white: #FFFFFF;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Barlow', sans-serif;
+    --font-cond: 'Barlow Condensed', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { background: var(--navy); color: var(--ivory); font-family: var(--font-sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--navy); } ::-webkit-scrollbar-thumb { background: var(--gold); }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 4rem; height: 72px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,15,30,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.15); transition: all 0.3s; }
+  nav.scrolled { height: 60px; border-bottom-color: rgba(255,255,255,0.3); }
+  .nav-logo { display: flex; align-items: baseline; gap: 0.5rem; text-decoration: none; }
+  .nav-logo-mark { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; }
+  .nav-logo-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.3); margin: 0 0.6rem; align-self: center; }
+  .nav-logo-sub { font-family: var(--font-cond); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; color: var(--slate-light); text-transform: uppercase; line-height: 1.2; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--font-cond); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-light); text-decoration: none; transition: color 0.25s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform 0.25s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+  .nav-cta { font-family: var(--font-cond); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); background: var(--white); border: none; padding: 0.6rem 1.6rem; cursor: pointer; transition: background 0.25s, transform 0.2s; }
+  .nav-cta:hover { background: var(--gold-pale); transform: translateY(-1px); }
+
+  /* UTILITIES */
+  .gold-rule { width: 48px; height: 1px; background: var(--gold); display: inline-block; vertical-align: middle; margin-right: 1rem; }
+  .section-label { font-family: var(--font-cond); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; margin-bottom: 1.5rem; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, transparent); margin: 0 4rem; }
+  .pt-nav { padding-top: 72px; }
+  .required { color: rgba(255,160,160,0.8); }
+
+  /* CONTACT LAYOUT */
+  .contact-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 0; min-height: calc(100vh - 72px); }
+  .contact-info { background: var(--navy-mid); padding: 6rem 4rem; border-right: 1px solid rgba(255,255,255,0.08); }
+  .contact-info h2 { font-family: var(--font-serif); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300; line-height: 1.2; color: var(--ivory); margin-bottom: 1rem; }
+  .contact-info h2 em { font-style: italic; color: var(--gold-light); }
+  .contact-info > p { font-size: 0.9rem; color: var(--slate-light); line-height: 1.8; margin-bottom: 3rem; }
+
+  .contact-details { display: flex; flex-direction: column; gap: 0; margin-bottom: 3rem; }
+  .contact-item { display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .contact-item:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+  .contact-item-icon { font-size: 1rem; color: var(--gold); flex-shrink: 0; margin-top: 0.1rem; }
+  .contact-item-text h5 { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem; }
+  .contact-item-text p, .contact-item-text a { font-size: 0.875rem; color: var(--slate-light); text-decoration: none; transition: color 0.2s; }
+  .contact-item-text a:hover { color: var(--ivory); }
+
+  .offices { margin-top: 2rem; }
+  .office { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .office:first-of-type { border-top: 1px solid rgba(255,255,255,0.06); }
+  .office-city { font-size: 0.875rem; color: var(--slate-light); }
+  .office-status { font-family: var(--font-cond); font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate); border: 1px solid rgba(122,156,212,0.2); padding: 0.2rem 0.6rem; }
+
+  /* FORM */
+  .contact-form-wrap { background: var(--navy); padding: 6rem 4rem; }
+  .form-header { margin-bottom: 2.5rem; }
+  .form-header h3 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 300; color: var(--ivory); margin-bottom: 0.4rem; }
+  .form-header p { font-size: 0.82rem; color: var(--slate); }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-field.full { grid-column: 1 / -1; }
+  .form-field label { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate-light); }
+  .form-field input, .form-field select, .form-field textarea {
+    font-family: var(--font-sans); font-size: 0.875rem; font-weight: 300;
+    color: var(--ivory); background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(168,192,232,0.18);
+    padding: 0.85rem 1rem; outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    appearance: none; -webkit-appearance: none;
+  }
+  .form-field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237A9CD4'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; cursor: pointer; }
+  .form-field select option { background: #0A2260; color: var(--ivory); }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.06); }
+  .form-field input::placeholder, .form-field textarea::placeholder { color: var(--slate); }
+  .form-field textarea { min-height: 130px; resize: vertical; line-height: 1.6; }
+
+  .form-submit { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .form-notice { font-size: 0.72rem; color: var(--slate); line-height: 1.6; }
+  .form-notice::before { content: '🔒 '; }
+  .btn-submit { font-family: var(--font-cond); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); background: var(--white); border: none; padding: 1.1rem 3rem; cursor: pointer; transition: all 0.25s; align-self: flex-start; position: relative; overflow: hidden; }
+  .btn-submit::after { content: ''; position: absolute; inset: 0; background: rgba(13,43,110,0.12); transform: translateX(-100%); transition: transform 0.3s; }
+  .btn-submit:hover::after { transform: translateX(0); }
+
+  /* SUCCESS */
+  .form-success { display: none; text-align: center; padding: 4rem 2rem; }
+  .form-success.show { display: block; animation: fadeIn 0.4s ease; }
+  .success-icon { font-size: 2.5rem; color: var(--gold); display: block; margin-bottom: 1.5rem; }
+  .form-success h3 { font-family: var(--font-serif); font-size: 2rem; font-weight: 300; color: var(--ivory); margin-bottom: 1rem; }
+  .form-success p { font-size: 0.875rem; color: var(--slate-light); line-height: 1.8; max-width: 400px; margin: 0 auto; }
+
+  /* FOOTER */
+  footer { background: #071640; border-top: 1px solid rgba(255,255,255,0.1); padding: 4rem; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 2rem; }
+  .footer-brand p { font-size: 0.82rem; color: var(--slate); line-height: 1.75; margin-top: 1rem; max-width: 280px; }
+  .footer-col h5 { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a, .footer-col ul li span { font-size: 0.82rem; color: var(--slate); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--ivory); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--slate); }
+  .footer-legal { display: flex; gap: 2rem; }
+  .footer-legal a { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--slate); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .footer-legal a:hover { color: var(--gold); }
+
+  @media (max-width: 1100px) {
+    nav { padding: 0 2rem; }
+    .contact-wrap { grid-template-columns: 1fr; }
+    .contact-info { padding: 4rem 2rem; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .contact-form-wrap { padding: 4rem 2rem; }
+    footer { padding: 3rem 2rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .section-divider { margin: 0 2rem; }
+  }
+  @media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .form-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-mark">ICHS</span>
+    <div class="nav-logo-sep"></div>
+    <span class="nav-logo-sub">Legal &<br>Advisors</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="servicios.html">Servicios</a></li>
+    <li><a href="metodologia.html">Metodología</a></li>
+    <li><a href="mercados.html">Mercados</a></li>
+    <li><a href="sobre-ichs.html">Sobre ICHS</a></li>
+    <li><a href="recursos.html">Recursos</a></li>
+    <li><a href="contacto.html" class="active">Contacto</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.location='contacto.html'">Consulta Estratégica</button>
+</nav>
+
+<div class="pt-nav">
+  <div class="contact-wrap">
+
+    <!-- LEFT: INFO -->
+    <div class="contact-info">
+      <div class="section-label"><span class="gold-rule"></span>Contacto</div>
+      <h2>Inicie una conversación con el <em>equipo correcto</em></h2>
+      <p>Cada consulta es evaluada por un socio. Si su proyecto es adecuado para nuestra práctica, le asignaremos el especialista indicado y coordinaremos un diagnóstico inicial sin costo.</p>
+
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-item-icon">✉</div>
+          <div class="contact-item-text">
+            <h5>Email General</h5>
+            <p><a href="mailto:contacto@ichs.legal">contacto@ichs.legal</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉</div>
+          <div class="contact-item-text">
+            <h5>Nuevos Mandatos</h5>
+            <p><a href="mailto:mandatos@ichs.legal">mandatos@ichs.legal</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">☎</div>
+          <div class="contact-item-text">
+            <h5>Línea Directa</h5>
+            <p>Solo para mandatos en curso</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">◈</div>
+          <div class="contact-item-text">
+            <h5>NIT Colombia</h5>
+            <p>901822786-6</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-bottom:0.75rem"><span class="gold-rule"></span>Presencia</div>
+      <div class="offices">
+        <div class="office">
+          <span class="office-city">🇨🇴 Barranquilla</span>
+          <span class="office-status">Sede Principal</span>
+        </div>
+        <div class="office">
+          <span class="office-city">🇸🇻 San Salvador</span>
+          <span class="office-status">Firma Aliada</span>
+        </div>
+        <div class="office">
+          <span class="office-city">🇵🇦 Ciudad de Panamá</span>
+          <span class="office-status">Firma Aliada</span>
+        </div>
+        <div class="office">
+          <span class="office-city">🇺🇸 Miami, Florida</span>
+          <span class="office-status">Firma Aliada</span>
+        </div>
+        <div class="office">
+          <span class="office-city">🇲🇽 Ciudad de México</span>
+          <span class="office-status">Corresponsal</span>
+        </div>
+        <div class="office">
+          <span class="office-city">🇧🇷 São Paulo</span>
+          <span class="office-status">Corresponsal</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="contact-form-wrap">
+      <div id="formContent">
+        <div class="form-header">
+          <h3>Solicitud de Consulta Estratégica</h3>
+          <p>Un socio revisará su consulta en máximo 48 horas hábiles.</p>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Nombre completo <span class="required">*</span></label>
+            <input type="text" id="f_nombre" placeholder="Ej. Juan Pérez García">
+          </div>
+          <div class="form-field">
+            <label>Email corporativo <span class="required">*</span></label>
+            <input type="email" id="f_email" placeholder="juan@empresa.com">
+          </div>
+          <div class="form-field">
+            <label>Cargo / Posición <span class="required">*</span></label>
+            <select id="f_cargo">
+              <option value="" disabled selected>Seleccione su cargo</option>
+              <option>CEO / Director General</option>
+              <option>CFO / Director Financiero</option>
+              <option>CLO / Director Legal</option>
+              <option>CTO / Director de Tecnología</option>
+              <option>Fundador / Co-Fundador</option>
+              <option>General Partner (Fondo)</option>
+              <option>Limited Partner / Inversor</option>
+              <option>Director de Compliance</option>
+              <option>Director de Desarrollo de Negocio</option>
+              <option>Otro cargo directivo</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Tipo de organización <span class="required">*</span></label>
+            <select id="f_empresa">
+              <option value="" disabled selected>Seleccione tipo</option>
+              <option>Exchange / Plataforma cripto</option>
+              <option>Fondo de inversión / VC</option>
+              <option>Family Office</option>
+              <option>Corporación / Empresa tradicional</option>
+              <option>Proyecto DeFi / Web3</option>
+              <option>Startup fintech</option>
+              <option>Banco / Institución financiera</option>
+              <option>Regulador / Entidad pública</option>
+              <option>Firma de abogados</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>País de operación principal <span class="required">*</span></label>
+            <select id="f_pais">
+              <option value="" disabled selected>Seleccione país</option>
+              <option>🇸🇻 El Salvador</option>
+              <option>🇵🇦 Panamá</option>
+              <option>🇺🇸 Estados Unidos</option>
+              <option>🇨🇴 Colombia</option>
+              <option>🇲🇽 México</option>
+              <option>🇧🇷 Brasil</option>
+              <option>🇦🇷 Argentina</option>
+              <option>🇨🇱 Chile</option>
+              <option>🇵🇪 Perú</option>
+              <option>🇺🇾 Uruguay</option>
+              <option>Multi-jurisdiccional LATAM</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Objetivo estratégico principal <span class="required">*</span></label>
+            <select id="f_objetivo">
+              <option value="" disabled selected>Seleccione objetivo</option>
+              <option>Obtener licencia / autorización regulatoria</option>
+              <option>Tokenizar activos reales (RWA)</option>
+              <option>Estructurar entidad holding digital</option>
+              <option>Implementar programa de compliance cripto</option>
+              <option>Due diligence antes de inversión</option>
+              <option>Expansión regional / nuevos mercados</option>
+              <option>Litigación o defensa regulatoria</option>
+              <option>Contratos inteligentes / documentación DeFi</option>
+              <option>Otro objetivo</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Nombre de empresa / proyecto</label>
+            <input type="text" id="f_empresa_nombre" placeholder="Nombre de la organización">
+          </div>
+          <div class="form-field">
+            <label>Activos bajo gestión / Tamaño del proyecto</label>
+            <select id="f_tamano">
+              <option value="" disabled selected>Rango aproximado</option>
+              <option>Etapa temprana / Pre-revenue</option>
+              <option>Hasta $1M USD</option>
+              <option>$1M – $5M USD</option>
+              <option>$5M – $10M USD</option>
+              <option>$10M – $50M USD</option>
+              <option>$50M – $100M USD</option>
+              <option>Más de $100M USD</option>
+              <option>Prefiero no especificar</option>
+            </select>
+          </div>
+          <div class="form-field full">
+            <label>Descripción del proyecto / consulta <span class="required">*</span></label>
+            <textarea id="f_descripcion" placeholder="Describa brevemente su proyecto, el contexto legal actual y qué tipo de asesoría está buscando. Entre más detalle, mejor podremos evaluar su caso."></textarea>
+          </div>
+          <div class="form-field">
+            <label>Urgencia del mandato</label>
+            <select id="f_urgencia">
+              <option value="" disabled selected>Seleccione</option>
+              <option>Inmediato (menos de 2 semanas)</option>
+              <option>En el próximo mes</option>
+              <option>En los próximos 3 meses</option>
+              <option>En los próximos 6 meses</option>
+              <option>Solo exploración inicial</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>¿Cómo nos encontró?</label>
+            <select id="f_origen">
+              <option value="" disabled selected>Seleccione</option>
+              <option>Referido por un cliente / colega</option>
+              <option>LinkedIn</option>
+              <option>Evento / Conferencia</option>
+              <option>Búsqueda en Google</option>
+              <option>Publicación / Artículo nuestro</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-submit">
+          <p class="form-notice">Sus datos son confidenciales y no se comparten con terceros. Esta consulta está protegida por secreto profesional.</p>
+          <button class="btn-submit" onclick="submitForm()">Enviar Solicitud →</button>
+        </div>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <span class="success-icon">◈</span>
+        <h3>Solicitud recibida</h3>
+        <p>Un socio de ICHS revisará su consulta y se pondrá en contacto en máximo <strong style="color:var(--gold)">48 horas hábiles</strong>.</p>
+        <br>
+        <p style="font-size:0.8rem; color:var(--slate)">Si requiere atención urgente, puede escribir directamente a <a href="mailto:mandatos@ichs.legal" style="color:var(--slate-light)">mandatos@ichs.legal</a> indicando el código de referencia que recibirá por email.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo-mark">ICHS</div>
+      <p>Firma especializada en arquitectura legal para activos digitales en América Latina. Rigor institucional, precisión técnica, presencia regional.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Servicios</h5>
+      <ul>
+        <li><a href="servicios.html">Fase I — Blueprint</a></li>
+        <li><a href="servicios.html">Fase II — Ejecución</a></li>
+        <li><a href="mercados.html">Mercados</a></li>
+        <li><a href="metodologia.html">Metodología</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Firma</h5>
+      <ul>
+        <li><a href="sobre-ichs.html">Sobre ICHS</a></li>
+        <li><a href="recursos.html">Recursos</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><span>NIT 901822786-6</span></li>
+        <li><span>Barranquilla, Colombia</span></li>
+        <li><span>contacto@ichs.legal</span></li>
+        <li><a href="#">Política de Privacidad</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 ICHS Legal & Advisors S.A.S. — Iriarte · Chivetta · Sandoval. Todos los derechos reservados.</span>
+    <div class="footer-legal">
+      <a href="#">Privacidad</a>
+      <a href="#">Aviso Legal</a>
+      <a href="#">Términos de Uso</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  function submitForm() {
+    const required = [
+      { id: 'f_nombre', type: 'input' },
+      { id: 'f_email', type: 'input' },
+      { id: 'f_cargo', type: 'select' },
+      { id: 'f_empresa', type: 'select' },
+      { id: 'f_pais', type: 'select' },
+      { id: 'f_objetivo', type: 'select' },
+      { id: 'f_descripcion', type: 'textarea' }
+    ];
+    let valid = true;
+    required.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (!el || !el.value.trim()) {
+        if (el) el.style.borderColor = 'rgba(200,80,80,0.6)';
+        valid = false;
+      } else {
+        el.style.borderColor = '';
+      }
+    });
+    if (!valid) return;
+    document.getElementById('formContent').style.display = 'none';
+    const success = document.getElementById('formSuccess');
+    success.style.display = 'block';
+    success.classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
