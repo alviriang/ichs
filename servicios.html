@@ -5,175 +5,250 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Servicios — ICHS Legal & Advisors</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* ═══════════════════════════════════════════
+     EXACT SAME VARIABLES & BASE AS INDEX.HTML
+  ═══════════════════════════════════════════ */
   :root {
-    --navy: #0A0F1E; --navy-mid: #111827; --navy-light: #1C2740;
-    --gold: #C9A84C; --gold-light: #E8C97A;
-    --ivory: #F8F5EE; --slate: #8896B3; --slate-light: #B0BCCE;
+    --navy: #0D2B6E;
+    --navy-mid: #0A2260;
+    --navy-light: #163580;
+    --gold: #FFFFFF;
+    --gold-light: #E8EEFF;
+    --gold-pale: #C8D4F0;
+    --ivory: #FFFFFF;
+    --ivory-dark: #E8EEFF;
+    --slate: #7A9CD4;
+    --slate-light: #A8C0E8;
+    --white: #FFFFFF;
     --font-serif: 'Cormorant Garamond', Georgia, serif;
     --font-sans: 'Barlow', sans-serif;
     --font-cond: 'Barlow Condensed', sans-serif;
   }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--navy); color: var(--ivory); font-family: var(--font-sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--navy); } ::-webkit-scrollbar-thumb { background: var(--gold); }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body { background: var(--navy); color: var(--ivory); font-family: var(--font-sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
 
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 4rem; height: 72px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,15,30,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,76,0.15); }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ─── NAVIGATION (identical to index) ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0 4rem; height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10, 15, 30, 0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    transition: all 0.3s ease;
+  }
+  nav.scrolled { height: 60px; border-bottom-color: rgba(255,255,255,0.3); }
   .nav-logo { display: flex; align-items: baseline; gap: 0.5rem; cursor: pointer; text-decoration: none; }
-  .nav-logo-mark { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; color: var(--gold); }
-  .nav-sep { width: 1px; height: 18px; background: rgba(201,168,76,0.3); margin: 0 0.4rem; align-self: center; }
-  .nav-logo-sub { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--slate-light); text-transform: uppercase; line-height: 1.2; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { font-family: var(--font-cond); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--slate-light); text-decoration: none; transition: color 0.2s; cursor: pointer; }
+  .nav-logo-mark { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; }
+  .nav-logo-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.3); margin: 0 0.6rem; align-self: center; }
+  .nav-logo-sub { font-family: var(--font-cond); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; color: var(--slate-light); text-transform: uppercase; line-height: 1.2; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--font-cond); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-light); text-decoration: none; transition: color 0.25s; position: relative; cursor: pointer; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform 0.25s; }
   .nav-links a:hover, .nav-links a.active { color: var(--gold); }
-  .nav-cta { font-family: var(--font-cond); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); background: var(--gold); border: none; padding: 0.6rem 1.5rem; cursor: pointer; transition: background 0.2s; }
-  .nav-cta:hover { background: var(--gold-light); }
+  .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+  .nav-cta { font-family: var(--font-cond); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); background: var(--white); border: none; padding: 0.6rem 1.6rem; cursor: pointer; transition: background 0.25s, transform 0.2s; }
+  .nav-cta:hover { background: var(--gold-pale); transform: translateY(-1px); }
 
-  .page-header { padding: 120px 4rem 5rem; position: relative; overflow: hidden; border-bottom: 1px solid rgba(201,168,76,0.1); }
-  .header-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px); background-size: 60px 60px; mask-image: linear-gradient(90deg, transparent, rgba(0,0,0,0.4) 60%); }
-  .section-label { font-family: var(--font-cond); font-size: 0.63rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
-  .section-label::before { content: ''; display: inline-block; width: 36px; height: 1px; background: var(--gold); }
-  .page-header h1 { font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 300; line-height: 1.1; color: var(--ivory); max-width: 780px; margin-bottom: 1.5rem; }
-  .page-header h1 em { font-style: italic; color: var(--gold-light); }
-  .page-header > p { font-size: 1rem; color: var(--slate-light); max-width: 560px; line-height: 1.8; margin-bottom: 2rem; }
+  /* ─── SHARED SECTION UTILITIES ─── */
+  .gold-rule { width: 48px; height: 1px; background: var(--gold); display: inline-block; vertical-align: middle; margin-right: 1rem; }
+  .section-label { font-family: var(--font-cond); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; margin-bottom: 1.5rem; }
+  .section { padding: 7rem 4rem; }
+  .section-header { max-width: 700px; margin-bottom: 5rem; }
+  .section-header h2 { font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.2; color: var(--ivory); margin-bottom: 1.25rem; }
+  .section-header h2 em { font-style: italic; color: var(--gold-light); }
+  .section-header p { font-size: 1rem; color: var(--slate-light); line-height: 1.8; }
+  .section-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, transparent); margin: 0 4rem; }
+  .pt-nav { padding-top: 72px; }
+
+  /* ─── BUTTONS ─── */
+  .btn-primary { font-family: var(--font-cond); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); background: var(--white); border: none; padding: 1rem 2.5rem; cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden; }
+  .btn-primary::after { content: ''; position: absolute; inset: 0; background: rgba(13,43,110,0.1); transform: translateX(-100%); transition: transform 0.3s; }
+  .btn-primary:hover::after { transform: translateX(0); }
+  .btn-ghost { font-family: var(--font-cond); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate-light); background: transparent; border: 1px solid rgba(168,192,232,0.3); padding: 1rem 2.5rem; cursor: pointer; transition: all 0.25s; }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── CTA BAND ─── */
+  .cta-band { background: var(--navy-light); border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 4rem; display: flex; align-items: center; justify-content: space-between; gap: 3rem; }
+  .cta-band h3 { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; color: var(--ivory); max-width: 500px; line-height: 1.3; }
+  .cta-band h3 em { font-style: italic; color: var(--gold-light); }
+
+  /* ─── FOOTER ─── */
+  footer { background: #071640; border-top: 1px solid rgba(255,255,255,0.1); padding: 4rem; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 2rem; }
+  .footer-brand p { font-size: 0.82rem; color: var(--slate); line-height: 1.75; margin-top: 1rem; max-width: 280px; }
+  .footer-col h5 { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a, .footer-col ul li span { font-size: 0.82rem; color: var(--slate); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--ivory); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--slate); }
+  .footer-legal { display: flex; gap: 2rem; }
+  .footer-legal a { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--slate); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .footer-legal a:hover { color: var(--gold); }
+
+  /* ─── PAGE HEADER ─── */
+  .page-hero {
+    min-height: 55vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 4rem 5rem;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .page-hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(165deg, transparent 40%, rgba(255,255,255,0.03) 100%),
+      radial-gradient(ellipse at 70% 20%, rgba(255,255,255,0.05) 0%, transparent 60%),
+      linear-gradient(180deg, #0D2B6E 0%, #071640 100%);
+  }
+  .page-hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+  }
+  .page-hero-content { position: relative; max-width: 860px; animation: fadeIn 0.5s ease; }
+  .page-hero-eyebrow { font-family: var(--font-cond); font-size: 0.72rem; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .page-hero-eyebrow::before { content: ''; display: inline-block; width: 40px; height: 1px; background: var(--gold); }
+  .page-hero h1 { font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.08; color: var(--ivory); margin-bottom: 1.5rem; letter-spacing: -0.01em; }
+  .page-hero h1 em { font-style: italic; color: var(--gold-light); }
+  .page-hero p { font-size: 1rem; font-weight: 300; color: var(--slate-light); max-width: 560px; line-height: 1.75; margin-bottom: 2.5rem; }
   .header-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .chip { font-family: var(--font-cond); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate); border: 1px solid rgba(136,150,179,0.2); padding: 0.3rem 0.8rem; }
+  .chip { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--slate-light); border: 1px solid rgba(168,192,232,0.2); padding: 0.35rem 0.85rem; }
 
-  .model-overview { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(201,168,76,0.1); }
+  /* ─── PHASE MODEL CARDS ─── */
+  .model-overview { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.1); }
   .model-card { background: var(--navy-mid); padding: 3.5rem 4rem; position: relative; overflow: hidden; transition: background 0.3s; }
   .model-card:hover { background: var(--navy-light); }
-  .model-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+  .model-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
   .model-card:hover::before { transform: scaleX(1); }
-  .phase-watermark { font-family: var(--font-serif); font-size: 8rem; font-weight: 300; color: rgba(201,168,76,0.05); position: absolute; top: 1rem; right: 2rem; line-height: 1; pointer-events: none; user-select: none; }
-  .model-tag { font-family: var(--font-cond); font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block; }
+  .phase-watermark { font-family: var(--font-serif); font-size: 9rem; font-weight: 300; color: rgba(255,255,255,0.04); position: absolute; top: 1rem; right: 2rem; line-height: 1; pointer-events: none; user-select: none; }
+  .model-tag { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block; }
   .model-card h2 { font-family: var(--font-serif); font-size: 2rem; font-weight: 400; color: var(--ivory); margin-bottom: 0.3rem; line-height: 1.15; }
   .model-card h2 em { font-style: italic; color: var(--gold-light); }
   .model-sub { font-family: var(--font-cond); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate); margin-bottom: 1.5rem; }
   .model-card > p { font-size: 0.875rem; color: var(--slate-light); line-height: 1.8; margin-bottom: 2rem; max-width: 460px; }
-  .price-box { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.15); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+  .price-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 1.25rem 1.5rem; margin-bottom: 1.75rem; }
   .price-box-label { font-family: var(--font-cond); font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate); margin-bottom: 0.75rem; }
   .price-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem; }
   .price-desc { font-size: 0.82rem; color: var(--slate-light); }
-  .price-amount { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; color: var(--gold-light); }
-  .price-footnote { font-size: 0.72rem; color: var(--slate); margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(201,168,76,0.1); line-height: 1.65; }
-  .deliverables { display: flex; flex-direction: column; gap: 0.45rem; }
+  .price-amount { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; color: var(--ivory); }
+  .price-footnote { font-size: 0.72rem; color: var(--slate); margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.08); line-height: 1.65; }
+  .deliverables { display: flex; flex-direction: column; gap: 0.5rem; }
   .del-item { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.82rem; color: var(--slate-light); }
-  .del-item::before { content: '◈'; color: var(--gold); font-size: 0.55rem; flex-shrink: 0; margin-top: 0.35rem; }
+  .del-item::before { content: ''; width: 12px; height: 1px; background: var(--gold); flex-shrink: 0; margin-top: 0.7rem; }
 
-  .principle { background: var(--navy-light); border-top: 1px solid rgba(201,168,76,0.1); border-bottom: 1px solid rgba(201,168,76,0.1); padding: 2.5rem 4rem; display: flex; gap: 3rem; align-items: flex-start; }
-  .principle-quote { font-family: var(--font-serif); font-size: 4rem; color: rgba(201,168,76,0.2); line-height: 0.8; flex-shrink: 0; }
-  .principle h3 { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; color: var(--ivory); margin-bottom: 0.5rem; }
-  .principle p { font-size: 0.875rem; color: var(--slate-light); line-height: 1.8; max-width: 780px; }
-  .principle p strong { color: var(--ivory); font-weight: 500; }
+  /* ─── PRINCIPLE STRIP ─── */
+  .principle-strip { background: var(--navy-light); border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 2.5rem 4rem; display: flex; gap: 3rem; align-items: flex-start; }
+  .principle-quote { font-family: var(--font-serif); font-size: 4rem; color: rgba(255,255,255,0.12); line-height: 0.8; flex-shrink: 0; }
+  .principle-strip h3 { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 400; color: var(--ivory); margin-bottom: 0.5rem; }
+  .principle-strip p { font-size: 0.875rem; color: var(--slate-light); line-height: 1.8; max-width: 780px; }
+  .principle-strip p strong { color: var(--ivory); font-weight: 500; }
 
-  .section { padding: 5rem 4rem; }
-  .sec-header { margin-bottom: 3rem; }
-  .sec-header h2 { font-family: var(--font-serif); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 300; color: var(--ivory); line-height: 1.2; margin-bottom: 0.65rem; }
-  .sec-header h2 em { font-style: italic; color: var(--gold-light); }
-  .sec-header p { font-size: 0.875rem; color: var(--slate-light); line-height: 1.8; max-width: 600px; }
-
-  .bp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(201,168,76,0.1); margin-bottom: 3rem; }
-  .bp-card { background: var(--navy); padding: 2rem 1.75rem; transition: background 0.3s; }
+  /* ─── BLUEPRINT GRID ─── */
+  .bp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.1); margin-bottom: 3rem; }
+  .bp-card { background: var(--navy); padding: 2.5rem 2rem; transition: background 0.3s; }
   .bp-card:hover { background: var(--navy-light); }
-  .bp-n { font-family: var(--font-serif); font-size: 1.8rem; color: rgba(201,168,76,0.2); margin-bottom: 0.65rem; line-height: 1; }
-  .bp-card h4 { font-family: var(--font-cond); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ivory); margin-bottom: 0.4rem; }
-  .bp-card p { font-size: 0.8rem; color: var(--slate); line-height: 1.7; }
+  .bp-n { font-family: var(--font-serif); font-size: 1.8rem; color: rgba(255,255,255,0.12); margin-bottom: 0.75rem; line-height: 1; }
+  .bp-card h4 { font-family: var(--font-cond); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ivory); margin-bottom: 0.4rem; }
+  .bp-card p { font-size: 0.82rem; color: var(--slate); line-height: 1.7; }
 
-  .timeline { display: flex; flex-direction: column; border: 1px solid rgba(201,168,76,0.1); }
-  .tl-row { display: grid; grid-template-columns: 70px 1fr 200px; border-bottom: 1px solid rgba(201,168,76,0.08); transition: background 0.2s; }
-  .tl-row:last-child { border-bottom: none; }
-  .tl-row:hover { background: rgba(28,39,64,0.5); }
-  .tl-num { display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 1.8rem; color: rgba(201,168,76,0.25); border-right: 1px solid rgba(201,168,76,0.08); }
-  .tl-content { padding: 1.25rem 2rem; border-right: 1px solid rgba(201,168,76,0.08); }
-  .tl-content h4 { font-family: var(--font-cond); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem; }
-  .tl-content p { font-size: 0.8rem; color: var(--slate-light); line-height: 1.65; }
-  .tl-meta { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; justify-content: center; }
-  .tl-meta span { font-family: var(--font-cond); font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate); }
-  .tl-meta strong { font-family: var(--font-cond); font-size: 0.7rem; color: var(--slate-light); margin-top: 0.2rem; display: block; }
+  /* ─── TIMELINE (same as metodología in index) ─── */
+  .methodology-timeline { position: relative; padding: 2rem 0; }
+  .methodology-timeline::before { content: ''; position: absolute; left: 2rem; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2) 10%, rgba(255,255,255,0.2) 90%, transparent); }
+  .timeline-step { display: flex; gap: 3rem; padding: 3rem 0 3rem 5rem; position: relative; border-bottom: 1px solid rgba(255,255,255,0.06); transition: background 0.3s; }
+  .timeline-step:hover { background: rgba(22,53,128,0.4); }
+  .timeline-step::before { content: ''; position: absolute; left: 1.4rem; top: 3.5rem; width: 13px; height: 13px; border: 1px solid var(--gold); background: var(--navy); transform: rotate(45deg); transition: background 0.3s; }
+  .timeline-step:hover::before { background: var(--gold); }
+  .step-num { font-family: var(--font-serif); font-size: 3.5rem; font-weight: 300; color: rgba(255,255,255,0.08); line-height: 1; flex-shrink: 0; width: 60px; }
+  .step-content h3 { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400; color: var(--ivory); margin-bottom: 0.35rem; }
+  .step-content .step-label { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .step-content p { font-size: 0.9rem; color: var(--slate-light); line-height: 1.8; max-width: 600px; margin-bottom: 1rem; }
+  .step-deliverables { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .deliverable-tag { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--slate-light); border: 1px solid rgba(168,192,232,0.2); padding: 0.3rem 0.75rem; transition: all 0.2s; }
+  .deliverable-tag:hover { border-color: var(--gold); color: var(--gold); }
 
-  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(201,168,76,0.15) 30%, rgba(201,168,76,0.15) 70%, transparent); margin: 0 4rem; }
+  /* ─── JURISDICTION TABLES ─── */
+  .juris-section { margin-bottom: 4rem; }
+  .juris-header { display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem 0; border-top: 2px solid rgba(255,255,255,0.15); }
+  .juris-flag { font-size: 1.8rem; }
+  .juris-name { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 400; color: var(--ivory); }
+  .juris-sub { font-family: var(--font-cond); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-left: auto; }
 
-  .juris-section { margin-bottom: 3.5rem; }
-  .juris-header { display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem 0; border-top: 2px solid rgba(201,168,76,0.2); margin-bottom: 0; }
-  .juris-flag { font-size: 1.7rem; }
-  .juris-name { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400; color: var(--ivory); }
-  .juris-sub { font-family: var(--font-cond); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-left: auto; }
+  .regulatory-table { width: 100%; border-collapse: collapse; }
+  .regulatory-table th { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate); padding: 1rem 1.5rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.12); background: var(--navy-light); }
+  .regulatory-table td { font-size: 0.85rem; color: var(--slate-light); padding: 1rem 1.5rem; border-bottom: 1px solid rgba(10,34,96,1); vertical-align: top; line-height: 1.55; }
+  .regulatory-table tr:hover td { background: var(--navy-light); }
+  .regulatory-table td:first-child { color: var(--ivory); }
+  .price-val { font-family: var(--font-serif); font-size: 1.05rem; color: var(--ivory); white-space: nowrap; }
+  .price-note-small { font-size: 0.72rem; color: var(--slate); font-style: italic; margin-top: 0.2rem; line-height: 1.5; }
 
-  table { width: 100%; border-collapse: collapse; }
-  thead tr { background: var(--navy-light); }
-  th { font-family: var(--font-cond); font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate); padding: 0.85rem 1.25rem; text-align: left; border-bottom: 1px solid rgba(201,168,76,0.15); }
-  td { font-size: 0.82rem; color: var(--slate-light); padding: 0.9rem 1.25rem; border-bottom: 1px solid rgba(28,39,64,1); vertical-align: top; line-height: 1.5; }
-  tr:hover td { background: rgba(28,39,64,0.5); }
-  td:first-child { color: var(--ivory); }
-  .pv { font-family: var(--font-serif); font-size: 1rem; color: var(--gold); white-space: nowrap; }
-  .nt { font-size: 0.72rem; color: var(--slate); font-style: italic; margin-top: 0.2rem; line-height: 1.5; }
-  .pill { display: inline-block; font-family: var(--font-cond); font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 1px; white-space: nowrap; }
-  .p-incorp { background: rgba(201,168,76,0.1); color: var(--gold); }
-  .p-lic { background: rgba(28,39,64,1); color: var(--slate-light); border: 1px solid rgba(136,150,179,0.2); }
-  .p-admin { background: rgba(139,32,32,0.12); color: #c07070; }
-  .p-cont { background: rgba(50,80,130,0.2); color: #8aacde; }
+  .status-pill { display: inline-block; font-family: var(--font-cond); font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.22rem 0.55rem; border-radius: 1px; white-space: nowrap; }
+  .status-active { background: rgba(255,255,255,0.15); color: var(--white); }
+  .status-dev { background: rgba(22,53,128,1); color: var(--slate-light); border: 1px solid rgba(168,192,232,0.2); }
+  .status-license { background: rgba(10,34,96,0.8); color: var(--slate-light); border: 1px solid rgba(122,156,212,0.3); }
+  .status-admin { background: rgba(10,22,64,0.9); color: var(--slate); border: 1px solid rgba(122,156,212,0.2); }
 
-  .psad-box { border: 1px solid rgba(201,168,76,0.15); background: rgba(201,168,76,0.03); padding: 2.5rem 3rem; margin-top: 3.5rem; }
-  .psad-box h3 { font-family: var(--font-cond); font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-  .psad-box p { font-size: 0.875rem; color: var(--slate-light); margin-bottom: 1.25rem; line-height: 1.75; }
-  .psad-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 2rem; }
-  .psad-item { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.8rem; color: var(--slate); line-height: 1.55; }
-  .psad-item::before { content: '→'; color: var(--gold); font-size: 0.6rem; flex-shrink: 0; margin-top: 0.25rem; }
+  /* ─── PSAD BOX ─── */
+  .psad-box { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); padding: 2.5rem 3rem; margin-top: 3.5rem; }
+  .psad-box h3 { font-family: var(--font-cond); font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .psad-box > p { font-size: 0.875rem; color: var(--slate-light); margin-bottom: 1.5rem; line-height: 1.75; }
+  .psad-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 2rem; }
+  .psad-item { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.82rem; color: var(--slate); line-height: 1.6; }
+  .psad-item::before { content: '▸'; color: var(--gold); font-size: 0.65rem; flex-shrink: 0; margin-top: 0.2rem; }
 
-  .tax-note { background: var(--navy-light); border-left: 2px solid rgba(201,168,76,0.25); padding: 1.25rem 1.5rem; margin-top: 2rem; font-size: 0.78rem; color: var(--slate); line-height: 1.7; }
+  /* ─── TAX NOTE ─── */
+  .tax-note { background: var(--navy-light); border-left: 2px solid rgba(255,255,255,0.2); padding: 1.25rem 1.5rem; margin-top: 2rem; font-size: 0.8rem; color: var(--slate); line-height: 1.7; }
   .tax-note strong { color: var(--slate-light); }
 
-  .notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(201,168,76,0.1); margin-top: 3rem; }
-  .note-card { background: var(--navy-mid); padding: 2rem 1.75rem; }
-  .note-card h4 { font-family: var(--font-cond); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.65rem; }
-  .note-card p { font-size: 0.8rem; color: var(--slate); line-height: 1.7; }
+  /* ─── NOTES GRID (same as service-card style) ─── */
+  .notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.1); margin-top: 3rem; }
+  .note-card { background: var(--navy-mid); padding: 2.5rem 2rem; transition: background 0.3s; }
+  .note-card:hover { background: var(--navy-light); }
+  .note-card h4 { font-family: var(--font-cond); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.65rem; }
+  .note-card p { font-size: 0.82rem; color: var(--slate); line-height: 1.7; }
 
-  .cta-band { background: var(--navy-light); border-top: 1px solid rgba(201,168,76,0.1); padding: 4rem; display: flex; align-items: center; justify-content: space-between; gap: 3rem; }
-  .cta-band h3 { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300; color: var(--ivory); max-width: 500px; line-height: 1.3; }
-  .cta-band h3 em { font-style: italic; color: var(--gold-light); }
-  .cta-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-p { font-family: var(--font-cond); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); background: var(--gold); border: none; padding: 1rem 2.5rem; cursor: pointer; transition: background 0.2s; }
-  .btn-p:hover { background: var(--gold-light); }
-  .btn-g { font-family: var(--font-cond); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--slate-light); background: transparent; border: 1px solid rgba(136,150,179,0.3); padding: 1rem 2rem; cursor: pointer; transition: all 0.2s; }
-  .btn-g:hover { border-color: var(--gold); color: var(--gold); }
-
-  footer { background: #06080F; border-top: 1px solid rgba(201,168,76,0.08); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
-  .f-copy { font-family: var(--font-cond); font-size: 0.58rem; letter-spacing: 0.1em; color: var(--slate); }
-  .f-links { display: flex; gap: 1.5rem; }
-  .f-links a { font-family: var(--font-cond); font-size: 0.56rem; letter-spacing: 0.1em; color: var(--slate); text-decoration: none; text-transform: uppercase; }
-  .f-links a:hover { color: var(--gold); }
-
+  /* ─── RESPONSIVE ─── */
   @media (max-width: 1100px) {
-    nav, .section, .principle { padding-left: 2rem; padding-right: 2rem; }
-    .page-header { padding: 100px 2rem 4rem; }
+    nav, .section, .principle-strip, .cta-band { padding-left: 2rem; padding-right: 2rem; }
+    .page-hero { padding: 0 2rem 4rem; }
+    footer { padding: 3rem 2rem; }
     .model-overview { grid-template-columns: 1fr; }
     .model-card { padding: 2.5rem 2rem; }
     .bp-grid { grid-template-columns: 1fr 1fr; }
-    .tl-row { grid-template-columns: 60px 1fr; }
-    .tl-meta { display: none; }
-    .cta-band { padding: 3rem 2rem; flex-direction: column; align-items: flex-start; }
-    .divider { margin: 0 2rem; }
-    footer { padding: 2rem; flex-direction: column; gap: 1rem; }
+    .section-divider { margin: 0 2rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .cta-band { flex-direction: column; align-items: flex-start; }
     .notes-grid { grid-template-columns: 1fr; }
     .psad-list { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
     .nav-links, .nav-cta { display: none; }
     .bp-grid { grid-template-columns: 1fr; }
-    th, td { padding: 0.7rem 0.75rem; }
+    .regulatory-table th, .regulatory-table td { padding: 0.75rem 0.75rem; font-size: 0.78rem; }
     .juris-sub { display: none; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
   }
 </style>
 </head>
 <body>
 
-<nav>
+<!-- ─── NAVIGATION ─── -->
+<nav id="mainNav">
   <a href="index.html" class="nav-logo">
     <span class="nav-logo-mark">ICHS</span>
-    <div class="nav-sep"></div>
+    <div class="nav-logo-sep"></div>
     <span class="nav-logo-sub">Legal &<br>Advisors</span>
   </a>
   <ul class="nav-links">
@@ -188,21 +263,25 @@
   <button class="nav-cta" onclick="window.location='index.html'">Consulta Estratégica</button>
 </nav>
 
-<div class="page-header">
-  <div class="header-grid-bg"></div>
-  <div class="section-label">Servicios</div>
-  <h1>Modelo <em>llave en mano</em> para infraestructura financiera basada en activos digitales</h1>
-  <p>ICHS estructura sus servicios en dos fases diferenciadas y complementarias. La ejecución sin diseño genera ineficiencias, riesgos regulatorios y costos innecesarios.</p>
-  <div class="header-chips" style="margin-top:2rem">
-    <span class="chip">Iriarte · Chivetta · Sandoval</span>
-    <span class="chip">Barranquilla, Colombia</span>
-    <span class="chip">NIT 901822786-6</span>
-    <span class="chip">El Salvador · Panamá · EE.UU. · Colombia</span>
+<!-- ─── PAGE HERO ─── -->
+<div class="page-hero pt-nav">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-eyebrow">Servicios</div>
+    <h1>Modelo <em>llave en mano</em> para infraestructura financiera basada en activos digitales</h1>
+    <p>ICHS estructura sus servicios en dos fases diferenciadas y complementarias. La ejecución sin diseño genera ineficiencias, riesgos regulatorios y costos innecesarios.</p>
+    <div class="header-chips">
+      <span class="chip">Iriarte · Chivetta · Sandoval</span>
+      <span class="chip">Barranquilla, Colombia</span>
+      <span class="chip">El Salvador · Panamá · EE.UU · Colombia</span>
+    </div>
   </div>
 </div>
 
-<!-- PHASE CARDS -->
+<!-- ─── PHASE I + II CARDS ─── -->
 <div class="model-overview">
+  <!-- FASE I -->
   <div class="model-card">
     <div class="phase-watermark">I</div>
     <span class="model-tag">Obligatoria · Punto de partida de todo mandato</span>
@@ -213,15 +292,15 @@
       <div class="price-box-label">Honorarios Fase I — Fijos, independientes y no condicionados a fases posteriores</div>
       <div class="price-row"><span class="price-desc">Blueprint del Proyecto</span><span class="price-amount">USD 3.000</span></div>
       <div class="price-row"><span class="price-desc">Normograma Regulatorio</span><span class="price-amount">USD 800</span></div>
-      <p class="price-footnote">Expresados en USD. Facturación en COP según TRM vigente + IVA 19% (Colombia). Plazo estimado: 2 a 4 semanas desde aceptación formal, pago del anticipo y recepción completa de información.</p>
+      <p class="price-footnote">Expresados en USD. Facturación en COP según TRM vigente + IVA 19% (Colombia). Plazo estimado: 2 a 4 semanas desde aceptación formal, pago del anticipo y recepción de información completa.</p>
     </div>
     <div class="deliverables">
       <div class="del-item">Blueprint del Proyecto con diseño jurídico-regulatorio y estructural del modelo</div>
-      <div class="del-item">Roadmap de ejecución por fases, base para contratación de Fase II</div>
+      <div class="del-item">Roadmap de ejecución por fases, base para la contratación de la Fase II</div>
       <div class="del-item">Normograma regulatorio con autoridades, obligaciones y marcos normativos</div>
     </div>
   </div>
-
+  <!-- FASE II -->
   <div class="model-card">
     <div class="phase-watermark">II</div>
     <span class="model-tag">Condicionada · Se activa post-Blueprint aprobado</span>
@@ -229,21 +308,21 @@
     <p class="model-sub">Fase II — Coordinación y Dirección Integral</p>
     <p>Se activa una vez entregado y aprobado el Blueprint y el Roadmap. El cliente selecciona los servicios del Menú Referencial, los cuales son implementados bajo coordinación y supervisión integral de ICHS mediante su red de firmas aliadas y proveedores especializados en cada jurisdicción.</p>
     <div class="price-box">
-      <div class="price-box-label">Honorarios Fase II — ICHS factura directamente</div>
+      <div class="price-box-label">Honorarios Fase II — ICHS factura directamente por coordinación</div>
       <div class="price-row"><span class="price-desc">Coordinación y Dirección de Ejecución</span><span class="price-amount">USD 1.200</span></div>
-      <p class="price-footnote">Corresponde exclusivamente a la dirección estratégica y coordinación. Los costos legales, gubernamentales, notariales y de terceros no están incluidos. Cada firma aliada factura directamente al cliente. ICHS no actúa como intermediario financiero.</p>
+      <p class="price-footnote">Corresponde exclusivamente a la dirección estratégica y coordinación. Los costos legales, gubernamentales, notariales y de terceros no están incluidos. Cada firma aliada factura directamente al cliente en su jurisdicción. ICHS no actúa como intermediario financiero.</p>
     </div>
     <div class="deliverables">
-      <div class="del-item">Coordinación entre abogados locales, firmas aliadas y proveedores especializados</div>
-      <div class="del-item">Organización de reuniones de kickoff y sesiones de alineación</div>
-      <div class="del-item">Emisión de lineamientos jurídicos para correcta implementación del diseño</div>
+      <div class="del-item">Coordinación entre abogados locales, firmas aliadas y proveedores en cada jurisdicción</div>
+      <div class="del-item">Organización de kickoff, reuniones de alineación y lineamientos jurídicos</div>
       <div class="del-item">Seguimiento de hitos, entregables y cumplimiento del cronograma</div>
+      <div class="del-item">Supervisión hasta implementación completa de los servicios seleccionados</div>
     </div>
   </div>
 </div>
 
-<!-- PRINCIPLE -->
-<div class="principle">
+<!-- ─── PRINCIPLE STRIP ─── -->
+<div class="principle-strip">
   <div class="principle-quote">"</div>
   <div>
     <h3>El principio fundamental de ICHS</h3>
@@ -251,45 +330,104 @@
   </div>
 </div>
 
-<div class="divider"></div>
+<div class="section-divider"></div>
 
-<!-- PHASE I DETAIL -->
+<!-- ─── FASE I DETAIL ─── -->
 <div class="section">
-  <div class="sec-header">
-    <div class="section-label">Alcance del Blueprint</div>
+  <div class="section-header">
+    <div class="section-label"><span class="gold-rule"></span>Alcance del Blueprint</div>
     <h2>¿Qué comprende la <em>Fase I</em>?</h2>
     <p>Un proceso estructurado de levantamiento, análisis y validación de información. Sin él no es posible garantizar la viabilidad legal, la eficiencia regulatoria ni la coherencia operativa del proyecto.</p>
   </div>
+
   <div class="bp-grid">
-    <div class="bp-card"><div class="bp-n">01</div><h4>Diseño Jurídico-Regulatorio</h4><p>Diseño integral del proyecto considerando modelo de negocio, alcance territorial y naturaleza operativa.</p></div>
+    <div class="bp-card"><div class="bp-n">01</div><h4>Diseño Jurídico-Regulatorio</h4><p>Diseño integral considerando modelo de negocio, alcance territorial y naturaleza operativa del proyecto.</p></div>
     <div class="bp-card"><div class="bp-n">02</div><h4>Estructura Societaria</h4><p>Definición de la estructura societaria y jurisdiccional más adecuada para el proyecto y sus objetivos.</p></div>
     <div class="bp-card"><div class="bp-n">03</div><h4>Licencias y Autorizaciones</h4><p>Identificación de licencias, registros, autorizaciones y obligaciones regulatorias aplicables en cada jurisdicción.</p></div>
     <div class="bp-card"><div class="bp-n">04</div><h4>Secuencia de Ejecución</h4><p>Definición de la secuencia óptima por fases y jurisdicciones, con cronograma estimado de implementación.</p></div>
     <div class="bp-card"><div class="bp-n">05</div><h4>Análisis de Riesgos</h4><p>Análisis de riesgos regulatorios, operativos y de cumplimiento con identificación de mitigantes.</p></div>
-    <div class="bp-card"><div class="bp-n">06</div><h4>Alcance Llave en Mano</h4><p>Determinación del alcance real y necesario de la ejecución bajo esquema llave en mano, base para la Fase II.</p></div>
+    <div class="bp-card"><div class="bp-n">06</div><h4>Alcance Llave en Mano</h4><p>Determinación del alcance real y necesario de la ejecución, base para la contratación de la Fase II.</p></div>
   </div>
 
-  <div class="sec-header" style="margin-top:3.5rem; margin-bottom:2rem">
-    <div class="section-label">Proceso</div>
-    <h2>Cómo se <em>desarrolla</em></h2>
+  <!-- PROCESS TIMELINE -->
+  <div class="section-header" style="margin-top:4rem; margin-bottom:2rem">
+    <div class="section-label"><span class="gold-rule"></span>Proceso</div>
+    <h2>Cómo se <em>desarrolla</em> la Fase I</h2>
   </div>
-  <div class="timeline">
-    <div class="tl-row"><div class="tl-num">1</div><div class="tl-content"><h4>Aceptación Formal y Anticipo</h4><p>Firma de la propuesta, pago del anticipo y suscripción del Acuerdo de Confidencialidad (NDA) ICHS-02-2026.</p></div><div class="tl-meta"><span>Inicio del plazo</span><strong>Día 0</strong></div></div>
-    <div class="tl-row"><div class="tl-num">2</div><div class="tl-content"><h4>Requerimiento de Información Preliminar</h4><p>El cliente entrega información sobre modelo de negocio, estructura actual, operaciones y mercado objetivo conforme al Anexo correspondiente.</p></div><div class="tl-meta"><span>Responsabilidad</span><strong>Cliente</strong></div></div>
-    <div class="tl-row"><div class="tl-num">3</div><div class="tl-content"><h4>Análisis y Sesiones de Trabajo</h4><p>Reuniones de trabajo, sesiones de aclaración y solicitudes de información adicional según la complejidad del proyecto. Modalidad virtual y remota.</p></div><div class="tl-meta"><span>Formato</span><strong>Virtual / Remoto</strong></div></div>
-    <div class="tl-row"><div class="tl-num">4</div><div class="tl-content"><h4>Entrega de Entregables Fase I</h4><p>ICHS entrega el Blueprint con diseño jurídico-regulatorio, Roadmap de ejecución por fases y Normograma regulatorio aplicable.</p></div><div class="tl-meta"><span>Plazo estimado</span><strong>2 – 4 semanas</strong></div></div>
-    <div class="tl-row"><div class="tl-num">5</div><div class="tl-content"><h4>Activación opcional Fase II</h4><p>Con el Blueprint aprobado, el cliente selecciona libremente los servicios del Menú Referencial. La Fase II no es obligatoria.</p></div><div class="tl-meta"><span>Condición</span><strong>Opcional</strong></div></div>
+  <div class="methodology-timeline">
+    <div class="timeline-step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-label">Inicio del mandato</div>
+        <h3>Aceptación Formal y Anticipo</h3>
+        <p>Firma de la propuesta, pago del anticipo pactado y suscripción del Acuerdo de Confidencialidad ICHS. A partir de este momento comienza el plazo estimado.</p>
+        <div class="step-deliverables">
+          <span class="deliverable-tag">NDA firmado</span>
+          <span class="deliverable-tag">Anticipo recibido</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-label">Responsabilidad del cliente</div>
+        <h3>Requerimiento de Información</h3>
+        <p>El cliente entrega información sobre modelo de negocio, estructura actual, operaciones y mercado objetivo conforme al Anexo de Requerimiento Preliminar. La calidad de la información determina la precisión del Blueprint.</p>
+        <div class="step-deliverables">
+          <span class="deliverable-tag">Modelo de negocio</span>
+          <span class="deliverable-tag">Estructura actual</span>
+          <span class="deliverable-tag">Mercados objetivo</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-label">Trabajo conjunto</div>
+        <h3>Análisis y Sesiones de Trabajo</h3>
+        <p>Reuniones de trabajo, sesiones de aclaración y solicitudes de información adicional según la complejidad del proyecto. Prestación del servicio de forma virtual y remota.</p>
+        <div class="step-deliverables">
+          <span class="deliverable-tag">Sesiones virtuales</span>
+          <span class="deliverable-tag">Análisis regulatorio</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-label">Entregables — 2 a 4 semanas</div>
+        <h3>Entrega del Blueprint y Normograma</h3>
+        <p>ICHS entrega el Blueprint con el diseño jurídico-regulatorio completo, el Roadmap de ejecución por fases y jurisdicciones, y el Normograma regulatorio aplicable.</p>
+        <div class="step-deliverables">
+          <span class="deliverable-tag">Blueprint del Proyecto</span>
+          <span class="deliverable-tag">Roadmap de ejecución</span>
+          <span class="deliverable-tag">Normograma regulatorio</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <div class="step-label">Opcional</div>
+        <h3>Activación Fase II</h3>
+        <p>Con el Blueprint aprobado, el cliente selecciona libremente los servicios del Menú Referencial para proceder a la ejecución llave en mano. La Fase I es independiente y no obliga a contratar la Fase II.</p>
+        <div class="step-deliverables">
+          <span class="deliverable-tag">Selección de servicios</span>
+          <span class="deliverable-tag">Orden de ejecución</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="divider"></div>
+<div class="section-divider"></div>
 
-<!-- MENU DE SERVICIOS -->
+<!-- ─── MENU DE SERVICIOS ─── -->
 <div class="section">
-  <div class="sec-header">
-    <div class="section-label">Fase II — Menú Referencial</div>
+  <div class="section-header">
+    <div class="section-label"><span class="gold-rule"></span>Fase II — Menú Referencial de Servicios</div>
     <h2>Servicios disponibles por <em>jurisdicción</em></h2>
-    <p>Listado referencial de servicios coordinados bajo esquema llave en mano. Valores aproximados y estimativos, sujetos a ajuste según alcance definitivo, jurisdicción y condiciones regulatorias vigentes.</p>
+    <p>Listado referencial coordinado bajo esquema llave en mano. Valores aproximados y estimativos, sujetos a ajuste según alcance definitivo, jurisdicción y condiciones regulatorias vigentes al momento de ejecución.</p>
   </div>
 
   <!-- EL SALVADOR -->
@@ -299,21 +437,23 @@
       <span class="juris-name">El Salvador</span>
       <span class="juris-sub">IVA 13% · CNAD · Banco Central</span>
     </div>
-    <table>
-      <thead><tr><th>Servicio</th><th>Tipo</th><th>Valor</th><th>Notas</th></tr></thead>
+    <table class="regulatory-table">
+      <thead>
+        <tr><th>Servicio</th><th>Tipo</th><th>Valor</th><th>Notas</th></tr>
+      </thead>
       <tbody>
-        <tr><td>Honorarios constitución Sociedad Mercantil (S.A. de C.V.)</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">800 USD + IVA</span></td><td>Por una sola vez</td></tr>
-        <tr><td>Gastos administrativos de constitución de sociedad</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">400 USD</span></td><td>Por una sola vez</td></tr>
-        <tr><td>Asesoría legal para licencia como proveedor de activos digitales ante CNAD</td><td><span class="pill p-lic">Licenciamiento</span></td><td><span class="pv">7.000 USD + IVA</span></td><td>Incluye acompañamiento, elaboración de documentos y trámite ante autoridad competente</td></tr>
-        <tr><td>Gastos administrativos de obtención de licencia</td><td><span class="pill p-lic">Licenciamiento</span></td><td><span class="pv">550 USD</span></td><td>Por una sola vez</td></tr>
-        <tr><td>Pago de licencia una vez aprobada ante CNAD</td><td><span class="pill p-lic">Licenciamiento</span></td><td><span class="pv">6.300 USD</span></td><td>Por una sola vez</td></tr>
-        <tr><td>Revisión / elaboración manuales AML y coaching a oficiales de cumplimiento</td><td><span class="pill p-lic">Licenciamiento</span></td><td><span class="pv">1.500 USD + IVA</span></td><td>Por una sola vez</td></tr>
-        <tr><td>Licencia y registro como proveedor de servicios Bitcoin ante Banco Central</td><td><span class="pill p-lic">Licenciamiento</span></td><td><span class="pv">1.600 USD + IVA</span></td><td>No se renueva — solo habilita BTC</td></tr>
-        <tr><td>Contabilidad mensual (hasta 5 documentos)</td><td><span class="pill p-cont">Contable</span></td><td><span class="pv">120 USD + IVA</span><div class="nt">1.000 USD + IVA / anual</div></td><td>Recurrente mensual</td></tr>
-        <tr><td>Domicilio fiscal (buzón)</td><td><span class="pill p-admin">Administrativo</span></td><td><span class="pv">1.800 USD + IVA</span></td><td>Servicio por 1 año</td></tr>
-        <tr><td>Auditoría y cierre fiscal anual</td><td><span class="pill p-cont">Contable</span></td><td><span class="pv">800 USD</span></td><td>Realizada por auditor externo</td></tr>
-        <tr><td>Renovación de matrícula</td><td><span class="pill p-admin">Administrativo</span></td><td><span class="pv">125 USD</span></td><td>Depende del capital social — anual</td></tr>
-        <tr><td>Renovación de licencia PSAD ante CNAD</td><td><span class="pill p-lic">Licenciamiento</span></td><td><span class="pv">500 USD + IVA</span><div class="nt">+ 4.100 USD al CNAD</div></td><td>Anual</td></tr>
+        <tr><td>Honorarios constitución Sociedad Mercantil (S.A. de C.V.)</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">800 USD + IVA</span></td><td>Por una sola vez</td></tr>
+        <tr><td>Gastos administrativos de constitución de sociedad</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">400 USD</span></td><td>Por una sola vez</td></tr>
+        <tr><td>Asesoría legal para licencia PSAD ante CNAD</td><td><span class="status-pill status-dev">Licenciamiento</span></td><td><span class="price-val">7.000 USD + IVA</span></td><td>Incluye acompañamiento, elaboración de documentos y trámite ante la autoridad competente</td></tr>
+        <tr><td>Gastos administrativos de obtención de licencia</td><td><span class="status-pill status-dev">Licenciamiento</span></td><td><span class="price-val">550 USD</span></td><td>Por una sola vez</td></tr>
+        <tr><td>Pago de licencia una vez aprobada ante CNAD</td><td><span class="status-pill status-dev">Licenciamiento</span></td><td><span class="price-val">6.300 USD</span></td><td>Por una sola vez</td></tr>
+        <tr><td>Revisión / elaboración manuales AML y coaching a oficiales de cumplimiento</td><td><span class="status-pill status-dev">Licenciamiento</span></td><td><span class="price-val">1.500 USD + IVA</span></td><td>Por una sola vez</td></tr>
+        <tr><td>Licencia y registro como proveedor de servicios Bitcoin ante Banco Central</td><td><span class="status-pill status-dev">Licenciamiento</span></td><td><span class="price-val">1.600 USD + IVA</span></td><td>No se renueva — solo habilita BTC</td></tr>
+        <tr><td>Contabilidad mensual (hasta 5 documentos)</td><td><span class="status-pill status-license">Contable</span></td><td><span class="price-val">120 USD + IVA</span><div class="price-note-small">1.000 USD + IVA / anual</div></td><td>Recurrente mensual</td></tr>
+        <tr><td>Domicilio fiscal (buzón)</td><td><span class="status-pill status-admin">Administrativo</span></td><td><span class="price-val">1.800 USD + IVA</span></td><td>Servicio por 1 año</td></tr>
+        <tr><td>Auditoría y cierre fiscal anual</td><td><span class="status-pill status-license">Contable</span></td><td><span class="price-val">800 USD</span></td><td>Realizada por auditor externo</td></tr>
+        <tr><td>Renovación de matrícula</td><td><span class="status-pill status-admin">Administrativo</span></td><td><span class="price-val">125 USD</span></td><td>Depende del capital social — anual</td></tr>
+        <tr><td>Renovación de licencia PSAD ante CNAD</td><td><span class="status-pill status-dev">Licenciamiento</span></td><td><span class="price-val">500 USD + IVA</span><div class="price-note-small">+ 4.100 USD al CNAD</div></td><td>Anual</td></tr>
       </tbody>
     </table>
   </div>
@@ -325,36 +465,40 @@
       <span class="juris-name">Panamá</span>
       <span class="juris-sub">ITBMS 7% · Registro Público · DGI · SBP</span>
     </div>
-    <table>
-      <thead><tr><th>Servicio</th><th>Tipo</th><th>Valor</th><th>Notas</th></tr></thead>
+    <table class="regulatory-table">
+      <thead>
+        <tr><th>Servicio</th><th>Tipo</th><th>Valor</th><th>Notas</th></tr>
+      </thead>
       <tbody>
-        <tr><td>Incorporación de Fundación de Interés Privado</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">1.500 USD + ITBMS</span></td><td>Primer año: tasa única, gastos notariales, inscripción y registro en el Registro Público</td></tr>
-        <tr><td>Registro de fundación ante la DGI</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">150 USD + ITBMS</span></td><td>Por una sola vez</td></tr>
-        <tr><td>Elaboración del reglamento fundacional</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">850 USD + ITBMS</span></td><td>Por una sola vez</td></tr>
-        <tr><td>Impuesto anual tasa única</td><td><span class="pill p-admin">Administrativo</span></td><td><span class="pv">400 USD</span></td><td>Anual</td></tr>
-        <tr><td>Incorporación de Sociedad Anónima</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">1.300 USD + ITBMS</span></td><td>Primer año: tasa única, gastos notariales, inscripción y registro en el Registro Público</td></tr>
-        <tr><td>Registro de sociedad ante la DGI</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">150 USD + ITBMS</span></td><td>Por una sola vez</td></tr>
-        <tr><td>Elaboración de estatutos sociales</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">850 USD + ITBMS</span></td><td>Por una sola vez</td></tr>
-        <tr><td>Servicio de agente residente</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">250 USD + ITBMS</span></td><td>Aplica para fundación y sociedad</td></tr>
-        <tr><td>Servicio directores dignatarios</td><td><span class="pill p-admin">Administrativo</span></td><td><span class="pv">300 USD + ITBMS</span></td><td>Por director, anual. Aplica para fundación y sociedad</td></tr>
-        <tr><td>Asistencia legal para apertura de cuenta bancaria</td><td><span class="pill p-admin">Administrativo</span></td><td><span class="pv">1.000 USD + ITBMS</span></td><td>Anual</td></tr>
+        <tr><td>Incorporación de Fundación de Interés Privado</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">1.500 USD + ITBMS</span></td><td>Primer año: tasa única, gastos notariales, inscripción y registro en el Registro Público</td></tr>
+        <tr><td>Registro de la fundación ante la DGI</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">150 USD + ITBMS</span></td><td>Por una sola vez</td></tr>
+        <tr><td>Elaboración del reglamento fundacional</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">850 USD + ITBMS</span></td><td>Por una sola vez</td></tr>
+        <tr><td>Impuesto anual tasa única</td><td><span class="status-pill status-admin">Administrativo</span></td><td><span class="price-val">400 USD</span></td><td>Anual</td></tr>
+        <tr><td>Incorporación de Sociedad Anónima</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">1.300 USD + ITBMS</span></td><td>Primer año: tasa única, gastos notariales, inscripción y registro en el Registro Público</td></tr>
+        <tr><td>Registro de la sociedad ante la DGI</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">150 USD + ITBMS</span></td><td>Por una sola vez</td></tr>
+        <tr><td>Elaboración de estatutos sociales</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">850 USD + ITBMS</span></td><td>Por una sola vez</td></tr>
+        <tr><td>Servicio de agente residente</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">250 USD + ITBMS</span></td><td>Aplica para fundación y sociedad</td></tr>
+        <tr><td>Servicio directores dignatarios</td><td><span class="status-pill status-admin">Administrativo</span></td><td><span class="price-val">300 USD + ITBMS</span></td><td>Por director, anual. Aplica para fundación y sociedad</td></tr>
+        <tr><td>Asistencia legal para apertura de cuenta bancaria</td><td><span class="status-pill status-admin">Administrativo</span></td><td><span class="price-val">1.000 USD + ITBMS</span></td><td>Anual</td></tr>
       </tbody>
     </table>
   </div>
 
-  <!-- USA -->
+  <!-- EE.UU. -->
   <div class="juris-section">
     <div class="juris-header">
       <span class="juris-flag">🇺🇸</span>
       <span class="juris-name">Estados Unidos — Florida</span>
       <span class="juris-sub">IRS · EIN · Artículos de incorporación</span>
     </div>
-    <table>
-      <thead><tr><th>Servicio</th><th>Tipo</th><th>Valor</th><th>Incluye</th></tr></thead>
+    <table class="regulatory-table">
+      <thead>
+        <tr><th>Servicio</th><th>Tipo</th><th>Valor</th><th>Incluye</th></tr>
+      </thead>
       <tbody>
-        <tr><td>Registro e incorporación LLC</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">310 USD</span></td><td>Registro de empresa, artículos, EIN, carta de verificación TAX ID, By Laws</td></tr>
-        <tr><td>Registro e incorporación INC o Corp</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">250 USD</span></td><td>Registro de empresa, artículos, EIN, carta de verificación TAX ID, By Laws</td></tr>
-        <tr><td>Disolución de empresa</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">150 USD</span></td><td>Certificado de disolución de empresa</td></tr>
+        <tr><td>Registro e incorporación LLC</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">310 USD</span></td><td>Registro de empresa, artículos, EIN, carta de verificación TAX ID, By Laws</td></tr>
+        <tr><td>Registro e incorporación empresa INC o Corp</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">250 USD</span></td><td>Registro de empresa, artículos, EIN, carta de verificación TAX ID, By Laws</td></tr>
+        <tr><td>Disolución de empresa</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">150 USD</span></td><td>Certificado de disolución de empresa</td></tr>
       </tbody>
     </table>
   </div>
@@ -366,19 +510,21 @@
       <span class="juris-name">Colombia</span>
       <span class="juris-sub">IVA 19% · Cámara de Comercio · DIAN</span>
     </div>
-    <table>
-      <thead><tr><th>Servicio</th><th>Tipo</th><th>Valor</th><th>Notas</th></tr></thead>
+    <table class="regulatory-table">
+      <thead>
+        <tr><th>Servicio</th><th>Tipo</th><th>Valor</th><th>Notas</th></tr>
+      </thead>
       <tbody>
-        <tr><td>Gasto de incorporación SAS</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">534.000 COP</span></td><td>Impuesto de matrícula (activo máx. 1.000.000 COP), incorporación de actas, situación de control, inscripción de libros de comercio</td></tr>
-        <tr><td>Incorporación y registro SAS</td><td><span class="pill p-incorp">Incorporación</span></td><td><span class="pv">½ SMLMV + IVA</span></td><td>Elaboración de estatutos, acompañamiento a Cámara de Comercio y DIAN</td></tr>
+        <tr><td>Gasto de incorporación SAS</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">534.000 COP</span></td><td>Impuesto de matrícula (activo máx. 1.000.000 COP), incorporación de actas, situación de control, inscripción de libros de comercio</td></tr>
+        <tr><td>Incorporación y registro SAS</td><td><span class="status-pill status-active">Incorporación</span></td><td><span class="price-val">½ SMLMV + IVA</span></td><td>Elaboración de estatutos, acompañamiento a Cámara de Comercio y DIAN</td></tr>
       </tbody>
     </table>
   </div>
 
-  <!-- PSAD -->
+  <!-- PSAD BOX -->
   <div class="psad-box">
     <h3>Proveedor de Servicios de Activos Digitales (PSAD) — El Salvador</h3>
-    <p>Los PSAD están habilitados bajo el marco salvadoreño para realizar las siguientes actividades reguladas:</p>
+    <p>Los PSAD están habilitados bajo el marco salvadoreño para realizar las siguientes actividades reguladas ante la CNAD y el Banco Central:</p>
     <div class="psad-list">
       <div class="psad-item">Intercambio de activos digitales por dinero fiduciario o equivalente, o por otros activos digitales</div>
       <div class="psad-item">Operar plataformas de intercambio o comercialización de activos digitales o derivados</div>
@@ -387,33 +533,91 @@
       <div class="psad-item">Estructurar y administrar productos de inversión, préstamos y financiamiento digital</div>
       <div class="psad-item">Transferir activos digitales entre personas naturales, jurídicas o billeteras</div>
       <div class="psad-item">Resguardar, custodiar o administrar activos digitales o medios de acceso</div>
-      <div class="psad-item">Recibir y transmitir, ejecutar órdenes de compra/venta de activos digitales derivados</div>
+      <div class="psad-item">Recibir y ejecutar órdenes de compra/venta de activos digitales derivados</div>
     </div>
   </div>
 
+  <!-- TAX NOTE -->
   <div class="tax-note">
-    <strong>Nota sobre impuestos aplicables (año gravable 2026):</strong> El Salvador: IVA general 13% · Colombia: IVA general 19% · Panamá: ITBMS general 7%. Las tasas corresponden al régimen estándar y podrán variar según la naturaleza del servicio, condición fiscal del proveedor, exenciones o tratamientos especiales. <strong>Los valores del menú tienen carácter aproximado y estimativo</strong> — se ajustarán según el alcance definitivo y condiciones regulatorias vigentes al momento de ejecución.
+    <strong>Nota sobre impuestos aplicables (año gravable 2026):</strong> El Salvador: IVA general 13% · Colombia: IVA general 19% · Panamá: ITBMS general 7%. Las tasas corresponden al régimen estándar y podrán variar según la naturaleza del servicio, condición fiscal del proveedor, posibles exenciones y actualizaciones normativas. <strong>Los valores tienen carácter aproximado y estimativo.</strong> Cada firma aliada o tercero facturará directamente al cliente conforme a su jurisdicción y régimen fiscal aplicable.
   </div>
 
+  <!-- NOTES GRID -->
   <div class="notes-grid">
-    <div class="note-card"><h4>Honorarios Fijos</h4><p>Los honorarios de ICHS son fijos y acordados por adelantado. Sin sorpresas, sin horas no explicadas. Aplica obligación de medios y no de resultados.</p></div>
-    <div class="note-card"><h4>Facturación Directa</h4><p>Cada firma aliada o tercero emite factura directa al cliente, aplica sus impuestos locales y cobra en su moneda. ICHS no actúa como intermediario financiero ni recauda en nombre de terceros.</p></div>
-    <div class="note-card"><h4>Vigencia de Propuesta</h4><p>Las propuestas económicas tienen vigencia de 15 días hábiles desde su emisión. Los valores están sujetos a variaciones de tipo de cambio y actualizaciones regulatorias.</p></div>
+    <div class="note-card">
+      <h4>Honorarios Fijos</h4>
+      <p>Los honorarios de ICHS son fijos y acordados por adelantado. Sin sorpresas, sin horas no explicadas. Aplica obligación de medios y no de resultados.</p>
+    </div>
+    <div class="note-card">
+      <h4>Facturación Directa</h4>
+      <p>Cada firma aliada emite factura directa al cliente, aplica sus impuestos locales y cobra en su moneda y jurisdicción. ICHS no actúa como intermediario financiero ni recauda en nombre de terceros.</p>
+    </div>
+    <div class="note-card">
+      <h4>Vigencia de Propuesta</h4>
+      <p>Las propuestas económicas tienen vigencia de 15 días hábiles desde su emisión. Los valores están sujetos a variaciones de tipo de cambio y actualizaciones regulatorias vigentes.</p>
+    </div>
   </div>
 </div>
 
+<!-- ─── CTA BAND ─── -->
 <div class="cta-band">
   <h3>¿Listo para estructurar su proyecto con <em>rigor jurídico</em> desde el inicio?</h3>
-  <div class="cta-btns">
-    <button class="btn-p" onclick="window.location='index.html'">Solicitar Diagnóstico →</button>
-    <button class="btn-g" onclick="window.location='index.html'">Volver al Inicio</button>
+  <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+    <button class="btn-primary" onclick="window.location='index.html'">Solicitar Diagnóstico Inicial →</button>
+    <button class="btn-ghost" onclick="window.location='index.html'">Volver al Inicio</button>
   </div>
 </div>
 
+<!-- ─── FOOTER ─── -->
 <footer>
-  <span class="f-copy">© 2025 ICHS Legal & Advisors S.A.S. · NIT 901822786-6 · Barranquilla, Colombia · Lina Sandoval, Socia</span>
-  <div class="f-links"><a href="#">Privacidad</a><a href="#">Aviso Legal</a><a href="#">Términos</a></div>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo-mark">ICHS</div>
+      <p>Firma especializada en arquitectura legal para activos digitales en América Latina. Rigor institucional, precisión técnica, presencia regional.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Servicios</h5>
+      <ul>
+        <li><a href="servicios.html">Fase I — Blueprint</a></li>
+        <li><a href="servicios.html">Fase II — Ejecución</a></li>
+        <li><a href="servicios.html">El Salvador · PSAD</a></li>
+        <li><a href="servicios.html">Panamá · Estructuras</a></li>
+        <li><a href="servicios.html">Florida · Colombia</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Firma</h5>
+      <ul>
+        <li><a href="index.html">Sobre ICHS</a></li>
+        <li><a href="index.html">Metodología</a></li>
+        <li><a href="index.html">Recursos</a></li>
+        <li><a href="index.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><span>NIT 901822786-6</span></li>
+        <li><span>Barranquilla, Colombia</span></li>
+        <li><span>contacto@ichs.legal</span></li>
+        <li><a href="#">Política de Privacidad</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 ICHS Legal & Advisors S.A.S. — Iriarte · Chivetta · Sandoval. Todos los derechos reservados.</span>
+    <div class="footer-legal">
+      <a href="#">Privacidad</a>
+      <a href="#">Aviso Legal</a>
+      <a href="#">Términos de Uso</a>
+    </div>
+  </div>
 </footer>
 
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+</script>
 </body>
 </html>
