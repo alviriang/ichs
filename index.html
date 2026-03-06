@@ -1,0 +1,2220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICHS Legal & Advisors — Arquitectura Legal para Activos Digitales en LATAM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0D2B6E;
+    --navy-mid: #0A2260;
+    --navy-light: #163580;
+    --gold: #FFFFFF;
+    --gold-light: #E8EEFF;
+    --gold-pale: #C8D4F0;
+    --ivory: #FFFFFF;
+    --ivory-dark: #E8EEFF;
+    --slate: #7A9CD4;
+    --slate-light: #A8C0E8;
+    --white: #FFFFFF;
+    --red-accent: #1a4fa8;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Barlow', sans-serif;
+    --font-cond: 'Barlow Condensed', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--navy);
+    color: var(--ivory);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+  /* ─── PAGE SYSTEM ─── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 0 4rem;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10, 15, 30, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    transition: all 0.3s ease;
+  }
+  nav.scrolled {
+    height: 60px;
+    border-bottom-color: rgba(201, 168, 76, 0.3);
+  }
+  .nav-logo {
+    display: flex; align-items: baseline; gap: 0.5rem;
+    cursor: pointer;
+  }
+  .nav-logo-mark {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo-sep {
+    width: 1px; height: 20px;
+    background: rgba(201, 168, 76, 0.4);
+    margin: 0 0.6rem;
+    align-self: center;
+  }
+  .nav-logo-sub {
+    font-family: var(--font-cond);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--slate-light);
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .nav-links {
+    display: flex; gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-cond);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--slate-light);
+    text-decoration: none;
+    transition: color 0.25s;
+    position: relative;
+    cursor: pointer;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.25s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+  .nav-cta {
+    font-family: var(--font-cond);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--white);
+    border: none;
+    padding: 0.6rem 1.6rem;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-pale); transform: translateY(-1px); }
+
+  /* ─── DECORATIVE LINE ─── */
+  .gold-rule {
+    width: 48px; height: 1px;
+    background: var(--gold);
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 1rem;
+  }
+  .section-label {
+    font-family: var(--font-cond);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex; align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ─── HOME PAGE ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(165deg, transparent 40%, rgba(255,255,255,0.04) 100%),
+      radial-gradient(ellipse at 70% 20%, rgba(255,255,255,0.06) 0%, transparent 60%),
+      linear-gradient(180deg, #0D2B6E 0%, #071640 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 40%, transparent 100%);
+  }
+  .hero-corner {
+    position: absolute; top: 5rem; right: 4rem;
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--slate);
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  .hero-badge {
+    position: absolute; top: 5rem; left: 4rem;
+    display: flex; flex-direction: column; gap: 0.25rem;
+  }
+  .hero-badge span {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: var(--slate);
+    text-transform: uppercase;
+  }
+  .hero-badge span:first-child { color: var(--gold); }
+  .hero-content { position: relative; max-width: 900px; }
+  .hero-eyebrow {
+    font-family: var(--font-cond);
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+  h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.08;
+    color: var(--ivory);
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.01em;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--slate-light);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 3.5rem;
+  }
+  .hero-actions {
+    display: flex; align-items: center; gap: 2.5rem;
+  }
+  .btn-primary {
+    font-family: var(--font-cond);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--white);
+    border: none;
+    padding: 1rem 2.5rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(13,43,110,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  .btn-primary:hover::after { transform: translateX(0); }
+  .btn-ghost {
+    font-family: var(--font-cond);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--slate-light);
+    background: transparent;
+    border: 1px solid rgba(136,150,179,0.3);
+    padding: 1rem 2.5rem;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .btn-ghost:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .hero-stats {
+    position: absolute; bottom: 5rem; right: 4rem;
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+  .hero-stat {
+    text-align: right;
+  }
+  .hero-stat-num {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--slate);
+    text-transform: uppercase;
+  }
+  .hero-divider {
+    width: 1px; height: 120px;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.4), transparent);
+    margin: 0 auto;
+    position: absolute; bottom: 3rem; left: 50%;
+  }
+
+  /* ─── HOME: PRACTICES ─── */
+  .practices-strip {
+    background: var(--navy-light);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 2rem 4rem;
+    display: flex; align-items: center; gap: 3rem;
+    overflow-x: auto;
+  }
+  .practices-strip-label {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--slate);
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .practices-strip-sep {
+    width: 1px; height: 24px;
+    background: rgba(201,168,76,0.2);
+    flex-shrink: 0;
+  }
+  .practice-tag {
+    font-family: var(--font-cond);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: var(--slate-light);
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(136,150,179,0.2);
+    transition: all 0.25s;
+    cursor: default;
+  }
+  .practice-tag:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── HOME: APPROACH ─── */
+  .approach-section {
+    padding: 7rem 4rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: center;
+  }
+  .approach-left h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--ivory);
+    margin-bottom: 1.5rem;
+  }
+  .approach-left h2 em { font-style: italic; color: var(--gold-light); }
+  .approach-left p {
+    font-size: 0.95rem;
+    color: var(--slate-light);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .approach-right {
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .approach-item {
+    padding: 1.75rem 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    display: flex; gap: 1.5rem;
+    transition: all 0.25s;
+    cursor: default;
+  }
+  .approach-item:first-child { border-top: 1px solid rgba(201,168,76,0.1); }
+  .approach-item:hover { padding-left: 0.5rem; }
+  .approach-num {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--gold);
+    opacity: 0.5;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+  }
+  .approach-text h4 {
+    font-family: var(--font-cond);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ivory);
+    margin-bottom: 0.4rem;
+  }
+  .approach-text p {
+    font-size: 0.85rem;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  /* ─── HOME: MARKETS PREVIEW ─── */
+  .markets-preview {
+    padding: 0 4rem 7rem;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: rgba(201,168,76,0.1);
+  }
+  .market-card {
+    background: var(--navy);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  .market-card:hover { background: var(--navy-light); }
+  .market-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.35s;
+    transform-origin: left;
+  }
+  .market-card:hover::before { transform: scaleX(1); }
+  .market-flag {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .market-name {
+    font-family: var(--font-cond);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--ivory);
+    margin-bottom: 0.5rem;
+  }
+  .market-status {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .market-desc {
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  /* ─── SECTION WRAPPER ─── */
+  .section {
+    padding: 7rem 4rem;
+  }
+  .section-header {
+    max-width: 700px;
+    margin-bottom: 5rem;
+  }
+  .section-header h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--ivory);
+    margin-bottom: 1.25rem;
+  }
+  .section-header h2 em { font-style: italic; color: var(--gold-light); }
+  .section-header p {
+    font-size: 1rem;
+    color: var(--slate-light);
+    line-height: 1.8;
+  }
+
+  /* ─── SERVICIOS ─── */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: rgba(201,168,76,0.1);
+    margin-bottom: 1px;
+  }
+  .service-card {
+    background: var(--navy);
+    padding: 3rem 2.5rem;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card:hover { background: var(--navy-light); }
+  .service-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  .service-card:hover::after { opacity: 1; }
+  .service-icon {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+  .service-card h3 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+  }
+  .service-card .service-sub {
+    font-family: var(--font-cond);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+  .service-card p {
+    font-size: 0.875rem;
+    color: var(--slate);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+  .service-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .service-list li {
+    font-family: var(--font-cond);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--slate-light);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .service-list li::before {
+    content: '';
+    width: 12px; height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ─── METODOLOGÍA ─── */
+  .methodology-timeline {
+    position: relative;
+    padding: 2rem 0;
+  }
+  .methodology-timeline::before {
+    content: '';
+    position: absolute; left: 2rem; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.3) 10%, rgba(201,168,76,0.3) 90%, transparent);
+  }
+  .timeline-step {
+    display: flex; gap: 3rem;
+    margin-bottom: 0;
+    padding: 3rem 0 3rem 5rem;
+    position: relative;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    transition: background 0.3s;
+  }
+  .timeline-step:hover { background: rgba(28,39,64,0.4); }
+  .timeline-step::before {
+    content: '';
+    position: absolute; left: 1.4rem; top: 3.5rem;
+    width: 13px; height: 13px;
+    border: 1px solid var(--gold);
+    background: var(--navy);
+    transform: rotate(45deg);
+    transition: background 0.3s;
+  }
+  .timeline-step:hover::before { background: var(--gold); }
+  .step-num {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: rgba(201,168,76,0.15);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 60px;
+  }
+  .step-content h3 {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 0.35rem;
+  }
+  .step-content .step-label {
+    font-family: var(--font-cond);
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .step-content p {
+    font-size: 0.9rem;
+    color: var(--slate-light);
+    line-height: 1.8;
+    max-width: 600px;
+    margin-bottom: 1rem;
+  }
+  .step-deliverables {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .deliverable-tag {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--slate-light);
+    border: 1px solid rgba(136,150,179,0.2);
+    padding: 0.3rem 0.75rem;
+    transition: all 0.2s;
+  }
+  .deliverable-tag:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── MERCADOS ─── */
+  .markets-full {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    margin-bottom: 6rem;
+  }
+  .market-region {
+    border-top: 2px solid rgba(201,168,76,0.2);
+    padding-top: 2rem;
+  }
+  .market-region h3 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 0.5rem;
+  }
+  .market-region .region-sub {
+    font-family: var(--font-cond);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .market-region p {
+    font-size: 0.875rem;
+    color: var(--slate-light);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .market-highlights {
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .market-highlight {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--slate);
+  }
+  .market-highlight::before {
+    content: '▸';
+    color: var(--gold);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+  .regulatory-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+  }
+  .regulatory-table th {
+    font-family: var(--font-cond);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--slate);
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    background: var(--navy-light);
+  }
+  .regulatory-table td {
+    font-size: 0.85rem;
+    color: var(--slate-light);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(28,39,64,1);
+    vertical-align: top;
+  }
+  .regulatory-table tr:hover td { background: var(--navy-light); }
+  .status-pill {
+    display: inline-block;
+    font-family: var(--font-cond);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 1px;
+  }
+  .status-active { background: rgba(255,255,255,0.15); color: var(--white); }
+  .status-dev { background: rgba(22,53,128,1); color: var(--slate-light); border: 1px solid rgba(168,192,232,0.2); }
+  .status-watch { background: rgba(10,34,96,0.6); color: var(--slate-light); border: 1px solid rgba(122,156,212,0.3); }
+
+  /* ─── SOBRE ICHS ─── */
+  .about-hero {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem;
+    margin-bottom: 6rem;
+  }
+  .about-left h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--ivory);
+    margin-bottom: 1.5rem;
+  }
+  .about-left h2 em { font-style: italic; color: var(--gold-light); }
+  .about-left p {
+    font-size: 0.95rem;
+    color: var(--slate-light);
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+  .values-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: rgba(201,168,76,0.1);
+  }
+  .value-card {
+    background: var(--navy);
+    padding: 2rem 1.75rem;
+    transition: background 0.3s;
+  }
+  .value-card:hover { background: var(--navy-light); }
+  .value-card h4 {
+    font-family: var(--font-cond);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .value-card p {
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+  .team-section {
+    margin-bottom: 5rem;
+  }
+  .team-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: rgba(201,168,76,0.1);
+    margin-top: 3rem;
+  }
+  .team-card {
+    background: var(--navy);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+  }
+  .team-card:hover { background: var(--navy-light); }
+  .team-avatar {
+    width: 56px; height: 56px;
+    border: 1px solid rgba(201,168,76,0.3);
+    background: var(--navy-light);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+  .team-name {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 0.2rem;
+  }
+  .team-role {
+    font-family: var(--font-cond);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .team-bio {
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+  .credentials-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+    background: rgba(201,168,76,0.1);
+    margin-top: 5rem;
+  }
+  .credential-item {
+    background: var(--navy-mid);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .credential-num {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .credential-label {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+
+  /* ─── RECURSOS ─── */
+  .resources-filters {
+    display: flex; gap: 0.5rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: var(--font-cond);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--slate);
+    background: transparent;
+    border: 1px solid rgba(136,150,179,0.2);
+    padding: 0.5rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+  .resources-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: rgba(201,168,76,0.1);
+  }
+  .resource-card {
+    background: var(--navy);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .resource-card:hover { background: var(--navy-light); }
+  .resource-type {
+    font-family: var(--font-cond);
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .resource-type::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--gold);
+  }
+  .resource-card h4 {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .resource-card p {
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .resource-meta {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--slate);
+    text-transform: uppercase;
+  }
+  .resource-arrow {
+    position: absolute; bottom: 2rem; right: 2rem;
+    width: 28px; height: 28px;
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    color: var(--gold);
+    transition: all 0.25s;
+  }
+  .resource-card:hover .resource-arrow {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  /* ─── CONTACTO ─── */
+  .contact-layout {
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem;
+  }
+  .contact-info h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 300;
+    color: var(--ivory);
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+  }
+  .contact-info h2 em { font-style: italic; color: var(--gold-light); }
+  .contact-info > p {
+    font-size: 0.9rem;
+    color: var(--slate-light);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+  .contact-details {
+    display: flex; flex-direction: column; gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .contact-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .contact-item-icon {
+    width: 32px; height: 32px;
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .contact-item-text h5 {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.25rem;
+  }
+  .contact-item-text p {
+    font-size: 0.85rem;
+    color: var(--slate-light);
+    line-height: 1.5;
+  }
+  .offices {
+    display: flex; flex-direction: column; gap: 1rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding-top: 2rem;
+  }
+  .office {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .office-city {
+    font-family: var(--font-cond);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ivory);
+  }
+  .office-status {
+    font-family: var(--font-cond);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ─── FORM ─── */
+  .contact-form {
+    background: var(--navy-light);
+    border: 1px solid rgba(201,168,76,0.1);
+    padding: 3rem;
+  }
+  .form-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .form-header h3 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 0.4rem;
+  }
+  .form-header p {
+    font-size: 0.8rem;
+    color: var(--slate);
+  }
+  .form-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .form-field {
+    display: flex; flex-direction: column; gap: 0.4rem;
+    margin-bottom: 0;
+  }
+  .form-field.full { grid-column: 1 / -1; }
+  .form-field label {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+  .form-field label .required { color: var(--gold); margin-left: 2px; }
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    background: var(--navy);
+    border: 1px solid rgba(136,150,179,0.15);
+    color: var(--ivory);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 300;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.25s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .form-field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C9A84C'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+  .form-field select option { background: var(--navy-mid); }
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    border-color: rgba(201,168,76,0.5);
+  }
+  .form-field textarea { resize: vertical; min-height: 100px; }
+  .form-field input::placeholder,
+  .form-field textarea::placeholder { color: var(--slate); opacity: 0.5; }
+  .form-filter-label {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 1.5rem 0 0.75rem;
+    border-top: 1px solid rgba(201,168,76,0.08);
+    margin-top: 0.5rem;
+    display: block;
+  }
+  .form-submit {
+    margin-top: 1.75rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .form-notice {
+    font-size: 0.75rem;
+    color: var(--slate);
+    line-height: 1.5;
+    max-width: 200px;
+  }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  .form-success h3 {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    color: var(--ivory);
+    margin-bottom: 1rem;
+  }
+  .form-success p {
+    font-size: 0.875rem;
+    color: var(--slate-light);
+    line-height: 1.75;
+  }
+  .form-success .success-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #071640;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 4rem;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+    margin-bottom: 2rem;
+  }
+  .footer-brand p {
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.75;
+    margin-top: 1rem;
+    max-width: 280px;
+  }
+  .footer-col h5 {
+    font-family: var(--font-cond);
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a,
+  .footer-col ul li span {
+    font-size: 0.82rem;
+    color: var(--slate);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--ivory); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy {
+    font-family: var(--font-cond);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--slate);
+  }
+  .footer-legal {
+    display: flex; gap: 2rem;
+  }
+  .footer-legal a {
+    font-family: var(--font-cond);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--slate);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .footer-legal a:hover { color: var(--gold); }
+
+  .top-banner {
+    background: #163580;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding: 0.5rem 4rem;
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+    position: relative;
+  }
+  .top-banner p {
+    font-family: var(--font-cond);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+  .top-banner a {
+    font-family: var(--font-cond);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .banner-close {
+    position: absolute; right: 1.5rem;
+    background: none; border: none;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0.6;
+  }
+
+  /* ─── PAGE TRANSITIONS ─── */
+  .page {
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── PT 72 ─── */
+  .pt-nav { padding-top: 72px; }
+
+  /* ─── DIVIDER ─── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2) 30%, rgba(201,168,76,0.2) 70%, transparent);
+    margin: 0 4rem;
+  }
+
+  /* ─── CTA BAND ─── */
+  .cta-band {
+    background: var(--navy-light);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    padding: 4rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 3rem;
+  }
+  .cta-band h3 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--ivory);
+    max-width: 500px;
+    line-height: 1.3;
+  }
+  .cta-band h3 em { font-style: italic; color: var(--gold-light); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1100px) {
+    nav { padding: 0 2rem; }
+    .hero { padding: 0 2rem 4rem; }
+    .section { padding: 5rem 2rem; }
+    .practices-strip { padding: 1.5rem 2rem; }
+    .approach-section { padding: 5rem 2rem; gap: 3rem; }
+    .markets-preview { padding: 0 2rem 5rem; grid-template-columns: 1fr 1fr; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .about-hero { grid-template-columns: 1fr; gap: 3rem; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    footer { padding: 3rem 2rem; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .cta-band { padding: 3rem 2rem; flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    h1 { font-size: 2.4rem; }
+    .hero-stats { display: none; }
+    .approach-section { grid-template-columns: 1fr; }
+    .markets-preview { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .resources-grid { grid-template-columns: 1fr; }
+    .markets-full { grid-template-columns: 1fr; }
+    .credentials-bar { grid-template-columns: 1fr 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .team-grid { grid-template-columns: 1fr; }
+    .top-banner { padding: 0.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP ANNOUNCEMENT BANNER -->
+<div class="top-banner" id="topBanner">
+  <p>Nuevo análisis regulatorio disponible: Marco MiCA y su impacto en LATAM</p>
+  <a onclick="navigate('recursos')">Descargar informe →</a>
+  <button class="banner-close" onclick="closeBanner()">✕</button>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+  <div class="nav-logo" onclick="navigate('home')">
+    <span class="nav-logo-mark">ICHS</span>
+    <div class="nav-logo-sep"></div>
+    <span class="nav-logo-sub">Legal &<br>Advisors</span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="navigate('home')" data-page="home">Inicio</a></li>
+    <li><a onclick="navigate('servicios')" data-page="servicios">Servicios</a></li>
+    <li><a onclick="navigate('metodologia')" data-page="metodologia">Metodología</a></li>
+    <li><a onclick="navigate('mercados')" data-page="mercados">Mercados</a></li>
+    <li><a onclick="navigate('sobre')" data-page="sobre">Sobre ICHS</a></li>
+    <li><a onclick="navigate('recursos')" data-page="recursos">Recursos</a></li>
+    <li><a onclick="navigate('contacto')" data-page="contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-cta" onclick="navigate('contacto')">Consulta Estratégica</button>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero pt-nav">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-badge">
+      <span>Est. 2018</span>
+      <span>LATAM · Regional</span>
+    </div>
+    <div class="hero-corner">Arquitectura Legal · Activos Digitales</div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Firma Especializada en Derecho Digital</div>
+      <h1>Arquitectura legal<br>para la <em>economía digital</em><br>de América Latina</h1>
+      <p class="hero-desc">Estructuramos, protegemos y escalamos proyectos de activos digitales con rigor institucional. No somos asesores crypto — somos arquitectos de marcos jurídicos para el ecosistema digital de LATAM.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="navigate('contacto')">Iniciar Diagnóstico</button>
+        <button class="btn-ghost" onclick="navigate('servicios')">Ver Servicios</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">8+</div>
+        <div class="hero-stat-label">Jurisdicciones</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">120+</div>
+        <div class="hero-stat-label">Mandatos completados</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">$2B+</div>
+        <div class="hero-stat-label">En activos estructurados</div>
+      </div>
+    </div>
+    <div class="hero-divider"></div>
+  </div>
+
+  <!-- Practices Strip -->
+  <div class="practices-strip">
+    <span class="practices-strip-label">Áreas de práctica</span>
+    <div class="practices-strip-sep"></div>
+    <span class="practice-tag">Tokenización de Activos</span>
+    <span class="practice-tag">Cumplimiento Regulatorio</span>
+    <span class="practice-tag">Estructuración de Fondos</span>
+    <span class="practice-tag">Contratos Inteligentes</span>
+    <span class="practice-tag">Gobierno Corporativo Digital</span>
+    <span class="practice-tag">Licencias VASP</span>
+    <span class="practice-tag">Due Diligence Cripto</span>
+    <span class="practice-tag">Litigación Digital</span>
+  </div>
+
+  <!-- Approach -->
+  <div class="approach-section">
+    <div class="approach-left">
+      <div class="section-label"><span class="gold-rule"></span>Nuestro Enfoque</div>
+      <h2>Precisión jurídica en un entorno <em>regulatorio complejo</em></h2>
+      <p>El ecosistema de activos digitales en LATAM no tiene precedentes. Las regulaciones cambian, los marcos legales son fragmentados y los riesgos son reales. ICHS construye estructuras que resisten ese entorno.</p>
+      <p>Combinamos expertise en derecho financiero tradicional con comprensión técnica profunda de blockchain, DeFi y mercados de capital digital.</p>
+      <button class="btn-ghost" onclick="navigate('metodologia')" style="margin-top:1rem">Conocer Metodología</button>
+    </div>
+    <div class="approach-right">
+      <div class="approach-item">
+        <span class="approach-num">I</span>
+        <div class="approach-text">
+          <h4>Diagnóstico Regulatorio</h4>
+          <p>Evaluamos el mapa regulatorio de cada jurisdicción objetivo antes de estructurar cualquier solución legal.</p>
+        </div>
+      </div>
+      <div class="approach-item">
+        <span class="approach-num">II</span>
+        <div class="approach-text">
+          <h4>Arquitectura Personalizada</h4>
+          <p>No usamos templates. Cada estructura es diseñada para el cliente específico, su sector y sus mercados objetivo.</p>
+        </div>
+      </div>
+      <div class="approach-item">
+        <span class="approach-num">III</span>
+        <div class="approach-text">
+          <h4>Implementación y Monitoreo</h4>
+          <p>Acompañamos la ejecución y monitoreamos cambios regulatorios que puedan afectar la estructura.</p>
+        </div>
+      </div>
+      <div class="approach-item">
+        <span class="approach-num">IV</span>
+        <div class="approach-text">
+          <h4>Relaciones Institucionales</h4>
+          <p>Facilitamos el diálogo con reguladores, exchanges institucionales y organismos multilaterales.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- Markets Preview -->
+  <div class="section" style="padding-bottom: 0">
+    <div class="section-header">
+      <div class="section-label"><span class="gold-rule"></span>Mercados Clave</div>
+      <h2>Presencia activa en las principales <em>jurisdicciones digitales</em> de la región</h2>
+    </div>
+  </div>
+  <div class="markets-preview">
+    <div class="market-card" onclick="navigate('mercados')">
+      <span class="market-flag">🇲🇽</span>
+      <div class="market-name">México</div>
+      <div class="market-status">Marco Activo · Ley Fintech</div>
+      <p class="market-desc">Régimen regulatorio consolidado bajo la Ley Fintech. Experiencia con CNBV, Banxico y estructuras ITF.</p>
+    </div>
+    <div class="market-card" onclick="navigate('mercados')">
+      <span class="market-flag">🇧🇷</span>
+      <div class="market-name">Brasil</div>
+      <div class="market-status">Marco Activo · Lei 14.478</div>
+      <p class="market-desc">Primer mercado LATAM en aprobar ley específica para activos virtuales. Banco Central como supervisor.</p>
+    </div>
+    <div class="market-card" onclick="navigate('mercados')">
+      <span class="market-flag">🇨🇴</span>
+      <div class="market-name">Colombia</div>
+      <div class="market-status">En Desarrollo · SFC</div>
+      <p class="market-desc">Sandbox regulatorio activo. Superintendencia Financiera lidera proceso de regulación cripto.</p>
+    </div>
+    <div class="market-card" onclick="navigate('mercados')">
+      <span class="market-flag">🇦🇷</span>
+      <div class="market-name">Argentina</div>
+      <div class="market-status">Marco en Evolución</div>
+      <p class="market-desc">Contexto de alta adopción con marco regulatorio en construcción. Oportunidades estructurales únicas.</p>
+    </div>
+  </div>
+
+  <!-- CTA Band -->
+  <div class="cta-band" style="margin-top:0; border-top:none;">
+    <h3>¿Tiene un proyecto de activos digitales que necesita <em>arquitectura legal sólida</em>?</h3>
+    <button class="btn-primary" onclick="navigate('contacto')">Solicitar Consulta Inicial →</button>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo-mark">ICHS</div>
+        <p>Firma especializada en arquitectura legal para activos digitales en América Latina. Rigor institucional, precisión técnica, presencia regional.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Servicios</h5>
+        <ul>
+          <li><a onclick="navigate('servicios')">Estructuración Corporativa</a></li>
+          <li><a onclick="navigate('servicios')">Cumplimiento Regulatorio</a></li>
+          <li><a onclick="navigate('servicios')">Tokenización</a></li>
+          <li><a onclick="navigate('servicios')">Contratos Digitales</a></li>
+          <li><a onclick="navigate('servicios')">Due Diligence</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Mercados</h5>
+        <ul>
+          <li><a onclick="navigate('mercados')">México</a></li>
+          <li><a onclick="navigate('mercados')">Brasil</a></li>
+          <li><a onclick="navigate('mercados')">Colombia</a></li>
+          <li><a onclick="navigate('mercados')">Argentina</a></li>
+          <li><a onclick="navigate('mercados')">Centroamérica</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Firma</h5>
+        <ul>
+          <li><a onclick="navigate('sobre')">Sobre ICHS</a></li>
+          <li><a onclick="navigate('recursos')">Recursos</a></li>
+          <li><a onclick="navigate('contacto')">Contacto</a></li>
+          <li><span>LinkedIn</span></li>
+          <li><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9cac8dbccccdbdae9c0cac1da87c5cccec8c5">[email&#160;protected]</a></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 ICHS Legal & Advisors. Todos los derechos reservados.</span>
+      <div class="footer-legal">
+        <a href="#">Política de Privacidad</a>
+        <a href="#">Aviso Legal</a>
+        <a href="#">Términos de Uso</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: SERVICIOS
+══════════════════════════════════════════ -->
+<div class="page" id="page-servicios">
+  <div class="section pt-nav">
+    <div class="section-header">
+      <div class="section-label"><span class="gold-rule"></span>Servicios</div>
+      <h2>Práctica legal especializada en cada <em>dimensión del ecosistema digital</em></h2>
+      <p>ICHS ofrece una suite integrada de servicios legales diseñados específicamente para el ecosistema de activos digitales en LATAM. Cada servicio combina rigor jurídico con comprensión técnica del sector.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">⬡</div>
+        <h3>Estructuración Corporativa Digital</h3>
+        <div class="service-sub">Foundation & Governance</div>
+        <p>Diseñamos la arquitectura corporativa óptima para proyectos de activos digitales, considerando holding structures, jurisdicciones favorables y gobierno corporativo robusto.</p>
+        <ul class="service-list">
+          <li>Selección y constitución de holding structures</li>
+          <li>Diseño de gobierno corporativo DAO-compatible</li>
+          <li>Estructuras multi-jurisdiccionales</li>
+          <li>Planificación fiscal internacional</li>
+          <li>Documentación fundacional completa</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">◈</div>
+        <h3>Cumplimiento Regulatorio VASP</h3>
+        <div class="service-sub">Compliance & Licensing</div>
+        <p>Gestionamos procesos de licenciamiento como Proveedor de Servicios de Activos Virtuales (VASP) ante reguladores de LATAM y organismos internacionales.</p>
+        <ul class="service-list">
+          <li>Aplicaciones de licencia VASP/ITF</li>
+          <li>Programas AML/CFT para cripto</li>
+          <li>Políticas KYC institucionales</li>
+          <li>Reportes FATF y GAFI</li>
+          <li>Auditorías de cumplimiento continuo</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">◇</div>
+        <h3>Tokenización de Activos Reales</h3>
+        <div class="service-sub">RWA Tokenization</div>
+        <p>Estructuramos la tokenización de activos del mundo real (inmuebles, commodities, deuda privada, arte) con validez jurídica y cumplimiento regulatorio completo.</p>
+        <ul class="service-list">
+          <li>Opiniones legales sobre naturaleza del token</li>
+          <li>Estructuras SPV para tokenización</li>
+          <li>Contratos de custodio y emisión</li>
+          <li>Prospectos de oferta digital</li>
+          <li>Integración con regulación de valores</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⬡</div>
+        <h3>Contratos Inteligentes y Protocolos</h3>
+        <div class="service-sub">Smart Legal Contracts</div>
+        <p>Asesoramos en la redacción, auditoría y validación jurídica de contratos inteligentes, incluyendo su integración con contratos legales convencionales.</p>
+        <ul class="service-list">
+          <li>Legal wrappers para smart contracts</li>
+          <li>Opiniones de enforceability</li>
+          <li>Auditoría legal de protocolos DeFi</li>
+          <li>Términos de uso y disclaimers técnicos</li>
+          <li>Arbitraje para disputas on-chain</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">◈</div>
+        <h3>Due Diligence Cripto-Institucional</h3>
+        <div class="service-sub">Institutional Due Diligence</div>
+        <p>Realizamos procesos exhaustivos de due diligence para inversores institucionales que evalúan posiciones en exchanges, protocolos o fondos de activos digitales.</p>
+        <ul class="service-list">
+          <li>Due diligence regulatorio de exchanges</li>
+          <li>Evaluación de riesgo legal en DeFi</li>
+          <li>Revisión de estructuras de fondos cripto</li>
+          <li>Análisis de riesgo jurisdiccional</li>
+          <li>Reporte institucional certificado</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">◇</div>
+        <h3>Litigación y Resolución de Disputas</h3>
+        <div class="service-sub">Digital Asset Litigation</div>
+        <p>Representamos a clientes en disputas relacionadas con activos digitales ante tribunales judiciales, reguladores y foros de arbitraje internacionales.</p>
+        <ul class="service-list">
+          <li>Recuperación de activos digitales</li>
+          <li>Defensa ante acciones regulatorias</li>
+          <li>Arbitraje internacional cripto</li>
+          <li>Fraude y estafas de inversión digital</li>
+          <li>Disputas de propiedad intelectual en Web3</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h3>¿Necesita un servicio específico o una <em>solución integrada</em>?</h3>
+    <button class="btn-primary" onclick="navigate('contacto')">Hablar con un especialista →</button>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 ICHS Legal & Advisors.</span>
+      <div class="footer-legal">
+        <a href="#">Privacidad</a>
+        <a href="#">Aviso Legal</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: METODOLOGÍA
+══════════════════════════════════════════ -->
+<div class="page" id="page-metodologia">
+  <div class="section pt-nav">
+    <div class="section-header">
+      <div class="section-label"><span class="gold-rule"></span>Metodología</div>
+      <h2>Un proceso estructurado para <em>resultados predecibles</em></h2>
+      <p>La incertidumbre regulatoria no puede eliminarse, pero sí puede gestionarse con metodología precisa. ICHS aplica un proceso de cinco fases diseñado para minimizar riesgo y maximizar predictibilidad.</p>
+    </div>
+    <div class="methodology-timeline">
+      <div class="timeline-step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-label">Fase Inicial</div>
+          <h3>Diagnóstico Estratégico</h3>
+          <p>Evaluamos en profundidad el proyecto, los mercados objetivo, el perfil de riesgo del cliente y el panorama regulatorio vigente. Esta fase determina la viabilidad jurídica y la ruta crítica del mandato.</p>
+          <p>Incluye entrevistas con el equipo fundador o directivo, revisión de documentación existente, análisis del modelo de negocio y mapeo regulatorio preliminar.</p>
+          <div class="step-deliverables">
+            <span class="deliverable-tag">Memo de diagnóstico</span>
+            <span class="deliverable-tag">Mapa regulatorio inicial</span>
+            <span class="deliverable-tag">Matriz de riesgos</span>
+            <span class="deliverable-tag">Propuesta de estructura</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-label">Fase de Diseño</div>
+          <h3>Arquitectura Jurídica</h3>
+          <p>Diseñamos la estructura legal óptima considerando eficiencia regulatoria, protección patrimonial, optimización fiscal y escalabilidad regional. Presentamos alternativas con análisis comparativo.</p>
+          <div class="step-deliverables">
+            <span class="deliverable-tag">Blueprint estructural</span>
+            <span class="deliverable-tag">Análisis comparativo</span>
+            <span class="deliverable-tag">Memorando de opinión</span>
+            <span class="deliverable-tag">Plan de implementación</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-label">Fase Operativa</div>
+          <h3>Implementación</h3>
+          <p>Ejecutamos la estructura diseñada: constitución de entidades, redacción de contratos fundacionales, gestión de procesos ante reguladores y coordinación con asesores locales en cada jurisdicción.</p>
+          <div class="step-deliverables">
+            <span class="deliverable-tag">Documentos corporativos</span>
+            <span class="deliverable-tag">Contratos master</span>
+            <span class="deliverable-tag">Aplicaciones regulatorias</span>
+            <span class="deliverable-tag">Políticas de compliance</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-label">Fase de Supervisión</div>
+          <h3>Monitoreo Regulatorio</h3>
+          <p>Mantenemos vigilancia activa sobre cambios regulatorios en todas las jurisdicciones del cliente. Alertamos proactivamente sobre riesgos emergentes y adaptamos las estructuras cuando es necesario.</p>
+          <div class="step-deliverables">
+            <span class="deliverable-tag">Alertas regulatorias</span>
+            <span class="deliverable-tag">Reportes trimestrales</span>
+            <span class="deliverable-tag">Actualizaciones de estructura</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <div class="step-label">Fase de Escala</div>
+          <h3>Expansión Regional</h3>
+          <p>Cuando el cliente está listo para expandirse, aplicamos la metodología de diagnóstico a nuevas jurisdicciones, optimizando la estructura existente para absorber la expansión geográfica.</p>
+          <div class="step-deliverables">
+            <span class="deliverable-tag">Análisis de nuevos mercados</span>
+            <span class="deliverable-tag">Optimización estructural</span>
+            <span class="deliverable-tag">Licencias adicionales</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h3>Cada mandato comienza con un <em>diagnóstico sin costo</em> de 60 minutos.</h3>
+    <button class="btn-primary" onclick="navigate('contacto')">Agendar Diagnóstico →</button>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 ICHS Legal & Advisors.</span>
+      <div class="footer-legal"><a href="#">Privacidad</a><a href="#">Aviso Legal</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: MERCADOS
+══════════════════════════════════════════ -->
+<div class="page" id="page-mercados">
+  <div class="section pt-nav">
+    <div class="section-header">
+      <div class="section-label"><span class="gold-rule"></span>Mercados</div>
+      <h2>Cobertura regulatoria en los principales <em>mercados de LATAM</em></h2>
+      <p>ICHS opera con presencia directa o redes de corresponsales en ocho jurisdicciones de América Latina. Monitoreamos activamente los marcos regulatorios de cada mercado.</p>
+    </div>
+    <div class="markets-full">
+      <div class="market-region">
+        <h3>🇲🇽 México</h3>
+        <div class="region-sub">Marco consolidado · Ley Fintech 2018</div>
+        <p>México cuenta con el marco regulatorio más consolidado de LATAM para activos digitales, establecido por la Ley para Regular las Instituciones de Tecnología Financiera. ICHS tiene presencia activa en Ciudad de México y experiencia extensa con CNBV y Banxico.</p>
+        <div class="market-highlights">
+          <div class="market-highlight">Régimen de Instituciones de Tecnología Financiera (ITF) completamente operativo</div>
+          <div class="market-highlight">Activos virtuales reconocidos como medios de cambio bajo regulación de Banxico</div>
+          <div class="market-highlight">Obligaciones AML/CFT específicas para proveedores cripto</div>
+          <div class="market-highlight">Sandbox regulatorio disponible para modelos innovadores</div>
+        </div>
+      </div>
+      <div class="market-region">
+        <h3>🇧🇷 Brasil</h3>
+        <div class="region-sub">Marco moderno · Lei 14.478/2022</div>
+        <p>Brasil lidera la regulación cripto en LATAM con la aprobación de la Lei das Criptos en 2022, que establece al Banco Central como supervisor de las prestadoras de servicios de activos virtuales. Mercado con mayor volumen transaccional de la región.</p>
+        <div class="market-highlights">
+          <div class="market-highlight">Primero en LATAM en aprobar legislación específica para activos virtuales</div>
+          <div class="market-highlight">Banco Central publica reglamentación para prestadoras de VASP</div>
+          <div class="market-highlight">Receita Federal con tratamiento fiscal definido para criptoactivos</div>
+          <div class="market-highlight">Mercado de R$60B+ en activos cripto bajo gestión local</div>
+        </div>
+      </div>
+      <div class="market-region">
+        <h3>🇨🇴 Colombia</h3>
+        <div class="region-sub">En desarrollo · Sandbox SFC</div>
+        <p>Colombia avanza en su regulación cripto con el sandbox regulatorio de la Superintendencia Financiera. Mercado con alta adopción de stablecoins y remesas digitales. Expectativa de marco completo en 2025.</p>
+        <div class="market-highlights">
+          <div class="market-highlight">Sandbox regulatorio activo desde 2021 con múltiples participantes</div>
+          <div class="market-highlight">UIAF emitiendo directrices para reporte de operaciones cripto</div>
+          <div class="market-highlight">Alta adopción de USDC y USDT para pagos y remesas</div>
+          <div class="market-highlight">Marco regulatorio completo previsto para 2025</div>
+        </div>
+      </div>
+      <div class="market-region">
+        <h3>🇦🇷 Argentina</h3>
+        <div class="region-sub">Alta adopción · Marco evolutivo</div>
+        <p>Argentina presenta la mayor adopción per cápita de criptoactivos en LATAM, impulsada por contexto macroeconómico. El marco regulatorio está en construcción activa, con oportunidades estructurales significativas.</p>
+        <div class="market-highlights">
+          <div class="market-highlight">Top 10 global en adopción cripto per cápita</div>
+          <div class="market-highlight">CNV avanzando en regulación de exchanges y emisores digitales</div>
+          <div class="market-highlight">BCRA con restricciones cambiarias que crean demanda estructural</div>
+          <div class="market-highlight">Proyectos de ley en debate parlamentario activo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Regulatory Matrix -->
+    <div class="section-label" style="margin-bottom:1.5rem"><span class="gold-rule"></span>Matriz Regulatoria Regional</div>
+    <table class="regulatory-table">
+      <thead>
+        <tr>
+          <th>Jurisdicción</th>
+          <th>Marco Legal</th>
+          <th>Supervisor</th>
+          <th>VASP Licencia</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--ivory)">🇲🇽 México</strong></td>
+          <td>Ley Fintech 2018</td>
+          <td>CNBV / Banxico</td>
+          <td>ITF Requerida</td>
+          <td><span class="status-pill status-active">Activo</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ivory)">🇧🇷 Brasil</strong></td>
+          <td>Lei 14.478/2022</td>
+          <td>Banco Central</td>
+          <td>Registro BCB</td>
+          <td><span class="status-pill status-active">Activo</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ivory)">🇨🇴 Colombia</strong></td>
+          <td>Circular SFC 2021</td>
+          <td>SFC / UIAF</td>
+          <td>Sandbox Disponible</td>
+          <td><span class="status-pill status-dev">En Desarrollo</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ivory)">🇦🇷 Argentina</strong></td>
+          <td>Res. CNV 950/2023</td>
+          <td>CNV / BCRA</td>
+          <td>En Construcción</td>
+          <td><span class="status-pill status-dev">En Desarrollo</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ivory)">🇨🇱 Chile</strong></td>
+          <td>Ley Fintech 2023</td>
+          <td>CMF</td>
+          <td>Régimen Nuevo</td>
+          <td><span class="status-pill status-dev">En Desarrollo</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ivory)">🇵🇦 Panamá</strong></td>
+          <td>Ley 23/2015 (AML)</td>
+          <td>SBP / UAF</td>
+          <td>No específica</td>
+          <td><span class="status-pill status-watch">Monitoreo</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ivory)">🇵🇪 Perú</strong></td>
+          <td>Sin marco específico</td>
+          <td>SBS</td>
+          <td>No disponible</td>
+          <td><span class="status-pill status-watch">Monitoreo</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ivory)">🇺🇾 Uruguay</strong></td>
+          <td>Marco emergente</td>
+          <td>BCU / SENACLAFT</td>
+          <td>Análisis en curso</td>
+          <td><span class="status-pill status-dev">En Desarrollo</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 ICHS Legal & Advisors.</span>
+      <div class="footer-legal"><a href="#">Privacidad</a><a href="#">Aviso Legal</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: SOBRE ICHS
+══════════════════════════════════════════ -->
+<div class="page" id="page-sobre">
+  <div class="section pt-nav">
+    <div class="section-label"><span class="gold-rule"></span>Sobre ICHS</div>
+    <div class="about-hero">
+      <div class="about-left">
+        <h2>Una firma construida para la <em>próxima generación</em> de mercados de capital</h2>
+        <p>ICHS Legal & Advisors nació en 2018 con una premisa simple: los activos digitales requieren asesoría legal que comprenda tanto el derecho como la tecnología. No como conceptos separados, sino como un sistema integrado.</p>
+        <p>Fundada por abogados con trayectoria en banca de inversión, regulación financiera y tecnología blockchain, ICHS construyó desde el inicio un modelo de práctica diferente: equipos multidisciplinarios, presencia regional y relaciones directas con reguladores.</p>
+        <p>Hoy somos la firma de referencia para fondos de venture capital, family offices, exchanges institucionales y corporaciones que operan o quieren operar en el ecosistema digital de LATAM.</p>
+        <p>No trabajamos con proyectos en etapas de idea. Nuestros mandatos comienzan cuando hay un proyecto serio, un equipo comprometido y la voluntad de hacer las cosas correctamente.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <h4>Rigor Institucional</h4>
+          <p>Aplicamos estándares de una firma de primer nivel a cada mandato, independientemente del tamaño del cliente.</p>
+        </div>
+        <div class="value-card">
+          <h4>Precisión Técnica</h4>
+          <p>Comprendemos el código, los protocolos y la arquitectura blockchain porque trabajamos con ellos diariamente.</p>
+        </div>
+        <div class="value-card">
+          <h4>Transparencia Total</h4>
+          <p>Nuestros honorarios son fijos y acordados por adelantado. Sin sorpresas, sin horas no explicadas.</p>
+        </div>
+        <div class="value-card">
+          <h4>Perspectiva Regional</h4>
+          <p>LATAM no es un mercado uniforme. Nuestro trabajo refleja la diversidad jurídica real de la región.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="team-section">
+      <div class="section-label"><span class="gold-rule"></span>Equipo de Liderazgo</div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-avatar">IC</div>
+          <div class="team-name">Isabel Castillo Herrera</div>
+          <div class="team-role">Socia Fundadora & Managing Partner</div>
+          <p class="team-bio">Abogada con 18 años de experiencia en derecho financiero internacional. Ex-consejera legal de la CNBV. LL.M. en Derecho Financiero por London School of Economics. Especialista en regulación de mercados de valores digitales.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">MR</div>
+          <div class="team-name">Marcos Ribeiro Souza</div>
+          <div class="team-role">Socio · Mercados de Capitales Digitales</div>
+          <p class="team-bio">Ex-abogado senior del Banco Central do Brasil. Arquitecto del marco regulatorio VASP en el proceso legislativo de Lei 14.478. Doctorado en Derecho Económico por USP. Referente regional en regulación cripto.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar">AC</div>
+          <div class="team-name">Andrés Caballero Vega</div>
+          <div class="team-role">Socio · Estructuración y Tokenización</div>
+          <p class="team-bio">Especialista en estructuras de capital digital y tokenización de activos reales. 12 años en fondos de private equity en Nueva York y Bogotá. MBA Wharton. Ha liderado tokenizaciones por más de $400M en activos inmobiliarios.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Credentials -->
+    <div class="credentials-bar">
+      <div class="credential-item">
+        <div class="credential-num">120+</div>
+        <div class="credential-label">Mandatos completados</div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-num">8</div>
+        <div class="credential-label">Jurisdicciones activas</div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-num">$2.4B</div>
+        <div class="credential-label">Activos estructurados</div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-num">7</div>
+        <div class="credential-label">Años de operación</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 ICHS Legal & Advisors.</span>
+      <div class="footer-legal"><a href="#">Privacidad</a><a href="#">Aviso Legal</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: RECURSOS
+══════════════════════════════════════════ -->
+<div class="page" id="page-recursos">
+  <div class="section pt-nav">
+    <div class="section-header">
+      <div class="section-label"><span class="gold-rule"></span>Recursos</div>
+      <h2>Inteligencia regulatoria para <em>profesionales del sector</em></h2>
+      <p>Publicaciones, análisis y guías desarrolladas por el equipo de ICHS para mantener informados a operadores, inversores y ejecutivos del ecosistema digital en LATAM.</p>
+    </div>
+    <div class="resources-filters">
+      <button class="filter-btn active" onclick="filterResources('all', this)">Todos</button>
+      <button class="filter-btn" onclick="filterResources('informe', this)">Informes</button>
+      <button class="filter-btn" onclick="filterResources('analisis', this)">Análisis</button>
+      <button class="filter-btn" onclick="filterResources('guia', this)">Guías</button>
+      <button class="filter-btn" onclick="filterResources('alerta', this)">Alertas</button>
+    </div>
+    <div class="resources-grid" id="resourcesGrid">
+      <div class="resource-card" data-type="informe">
+        <div class="resource-type">Informe</div>
+        <h4>Marco MiCA y su impacto en operadores LATAM con presencia europea</h4>
+        <p>Análisis completo del Reglamento de Mercados de Criptoactivos europeo y sus implicaciones para exchanges y emisores latinoamericanos que operan en la UE.</p>
+        <div class="resource-meta">Marzo 2025 · 48 páginas</div>
+        <div class="resource-arrow">→</div>
+      </div>
+      <div class="resource-card" data-type="guia">
+        <div class="resource-type">Guía Práctica</div>
+        <h4>Guía de licenciamiento VASP en México: proceso paso a paso</h4>
+        <p>Proceso detallado para obtener autorización como Institución de Tecnología Financiera ante la CNBV, incluyendo documentación requerida y plazos esperados.</p>
+        <div class="resource-meta">Febrero 2025 · 32 páginas</div>
+        <div class="resource-arrow">→</div>
+      </div>
+      <div class="resource-card" data-type="analisis">
+        <div class="resource-type">Análisis</div>
+        <h4>Tokenización de deuda privada en LATAM: marco legal comparado</h4>
+        <p>Estudio comparativo del tratamiento legal de tokens de deuda privada en México, Brasil, Colombia y Argentina, con implicaciones para emisores e inversores.</p>
+        <div class="resource-meta">Enero 2025 · 56 páginas</div>
+        <div class="resource-arrow">→</div>
+      </div>
+      <div class="resource-card" data-type="alerta">
+        <div class="resource-type">Alerta Regulatoria</div>
+        <h4>Brasil: nuevas exigencias del Banco Central para prestadoras VASP en 2025</h4>
+        <p>Análisis de las resoluciones BCB 4282 y 4283 que establecen requisitos de capital mínimo y gobernanza para proveedores de servicios de activos virtuales.</p>
+        <div class="resource-meta">Diciembre 2024 · Alerta · 12 páginas</div>
+        <div class="resource-arrow">→</div>
+      </div>
+      <div class="resource-card" data-type="guia">
+        <div class="resource-type">Guía Práctica</div>
+        <h4>AML/CFT para exchanges cripto: implementación de programa completo</h4>
+        <p>Framework práctico para desarrollar, implementar y mantener un programa robusto de prevención de lavado de activos cumpliendo con estándares GAFI/FATF.</p>
+        <div class="resource-meta">Noviembre 2024 · 68 páginas</div>
+        <div class="resource-arrow">→</div>
+      </div>
+      <div class="resource-card" data-type="analisis">
+        <div class="resource-type">Análisis</div>
+        <h4>DeFi y su relación con el derecho de valores: perspectiva LATAM</h4>
+        <p>Análisis de cómo los reguladores latinoamericanos están interpretando los protocolos DeFi bajo sus marcos de derecho de valores y las implicaciones para operadores.</p>
+        <div class="resource-meta">Octubre 2024 · 40 páginas</div>
+        <div class="resource-arrow">→</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h3>Reciba nuestras alertas regulatorias directamente en su <em>bandeja de entrada.</em></h3>
+    <button class="btn-primary" onclick="navigate('contacto')">Suscribirse al Boletín →</button>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 ICHS Legal & Advisors.</span>
+      <div class="footer-legal"><a href="#">Privacidad</a><a href="#">Aviso Legal</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: CONTACTO
+══════════════════════════════════════════ -->
+<div class="page" id="page-contacto">
+  <div class="section pt-nav">
+    <div class="contact-layout">
+      <div class="contact-info">
+        <div class="section-label"><span class="gold-rule"></span>Contacto</div>
+        <h2>Inicie una conversación con el <em>equipo correcto</em></h2>
+        <p>Cada consulta es evaluada por un socio. Si su proyecto es adecuado para nuestra práctica, le asignaremos el especialista indicado y coordinaremos un diagnóstico inicial.</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-item-icon">✉</div>
+            <div class="contact-item-text">
+              <h5>Email General</h5>
+              <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1b2bebfa5b0b2a5be91b8b2b9a2ffbdb4b6b0bd">[email&#160;protected]</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">✉</div>
+            <div class="contact-item-text">
+              <h5>Nuevos Mandatos</h5>
+              <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="eb868a858f8a9f8498ab82888398c5878e8c8a87">[email&#160;protected]</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">☎</div>
+            <div class="contact-item-text">
+              <h5>Línea Directa (solo mandatos en curso)</h5>
+              <p>+52 55 4700 9200</p>
+            </div>
+          </div>
+        </div>
+        <div class="offices">
+          <div style="margin-bottom:0.75rem">
+            <div class="section-label" style="margin-bottom:0"><span class="gold-rule"></span>Oficinas</div>
+          </div>
+          <div class="office">
+            <span class="office-city">🇲🇽 Ciudad de México</span>
+            <span class="office-status">Oficina Principal</span>
+          </div>
+          <div class="office">
+            <span class="office-city">🇧🇷 São Paulo</span>
+            <span class="office-status">Oficina Regional</span>
+          </div>
+          <div class="office">
+            <span class="office-city">🇨🇴 Bogotá</span>
+            <span class="office-status">Corresponsal</span>
+          </div>
+          <div class="office">
+            <span class="office-city">🇦🇷 Buenos Aires</span>
+            <span class="office-status">Corresponsal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT FORM -->
+      <div class="contact-form" id="contactFormContainer">
+        <div id="formContent">
+          <div class="form-header">
+            <h3>Solicitud de Consulta Estratégica</h3>
+            <p>Complete el formulario. Un socio revisará su consulta en máximo 48 horas hábiles.</p>
+          </div>
+          <div class="form-grid">
+            <div class="form-field">
+              <label>Nombre completo <span class="required">*</span></label>
+              <input type="text" id="f_nombre" placeholder="Ej. Juan Pérez García">
+            </div>
+            <div class="form-field">
+              <label>Email corporativo <span class="required">*</span></label>
+              <input type="email" id="f_email" placeholder="juan@empresa.com">
+            </div>
+            <!-- FILTRO: CARGO -->
+            <div class="form-field">
+              <label>Cargo / Posición <span class="required">*</span></label>
+              <select id="f_cargo">
+                <option value="" disabled selected>Seleccione su cargo</option>
+                <option value="ceo">CEO / Director General</option>
+                <option value="cfo">CFO / Director Financiero</option>
+                <option value="clo">CLO / Director Legal</option>
+                <option value="cto">CTO / Director de Tecnología</option>
+                <option value="founder">Fundador / Co-Fundador</option>
+                <option value="gp">General Partner (Fondo)</option>
+                <option value="lp">Limited Partner / Inversor</option>
+                <option value="compliance">Director de Compliance</option>
+                <option value="bd">Director de Desarrollo de Negocio</option>
+                <option value="other">Otro cargo directivo</option>
+              </select>
+            </div>
+            <!-- FILTRO: EMPRESA -->
+            <div class="form-field">
+              <label>Tipo de organización <span class="required">*</span></label>
+              <select id="f_empresa">
+                <option value="" disabled selected>Seleccione tipo</option>
+                <option value="exchange">Exchange / Plataforma Cripto</option>
+                <option value="fondo">Fondo de Inversión / VC</option>
+                <option value="family_office">Family Office</option>
+                <option value="banco">Banco / Institución Financiera</option>
+                <option value="startup">Startup Web3 / Blockchain</option>
+                <option value="corp">Corporación / Empresa Tradicional</option>
+                <option value="gobierno">Entidad Gubernamental</option>
+                <option value="defi">Protocolo DeFi / DAO</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <!-- FILTRO: PAÍS -->
+            <div class="form-field">
+              <label>País de operación principal <span class="required">*</span></label>
+              <select id="f_pais">
+                <option value="" disabled selected>Seleccione país</option>
+                <option value="mx">🇲🇽 México</option>
+                <option value="br">🇧🇷 Brasil</option>
+                <option value="co">🇨🇴 Colombia</option>
+                <option value="ar">🇦🇷 Argentina</option>
+                <option value="cl">🇨🇱 Chile</option>
+                <option value="pe">🇵🇪 Perú</option>
+                <option value="pa">🇵🇦 Panamá</option>
+                <option value="uy">🇺🇾 Uruguay</option>
+                <option value="latam">Multi-jurisdiccional LATAM</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <!-- FILTRO: OBJETIVO ESTRATÉGICO -->
+            <div class="form-field">
+              <label>Objetivo estratégico principal <span class="required">*</span></label>
+              <select id="f_objetivo">
+                <option value="" disabled selected>Seleccione objetivo</option>
+                <option value="licencia">Obtener licencia / autorización regulatoria</option>
+                <option value="tokenizar">Tokenizar activos reales (RWA)</option>
+                <option value="estructura">Estructurar entidad holding digital</option>
+                <option value="compliance">Implementar programa de compliance cripto</option>
+                <option value="dd">Due diligence antes de inversión</option>
+                <option value="expansion">Expansión regional / nuevos mercados</option>
+                <option value="litigacion">Litigación o defensa regulatoria</option>
+                <option value="contrato">Contratos inteligentes / documentación DeFi</option>
+                <option value="otro">Otro objetivo</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Nombre de empresa / proyecto</label>
+              <input type="text" id="f_empresa_nombre" placeholder="Nombre de la organización">
+            </div>
+            <div class="form-field">
+              <label>Activos bajo gestión / Tamaño del proyecto</label>
+              <select id="f_tamano">
+                <option value="" disabled selected>Rango aproximado</option>
+                <option value="seed">Etapa temprana / Pre-revenue</option>
+                <option value="1m">Hasta $1M USD</option>
+                <option value="5m">$1M - $5M USD</option>
+                <option value="10m">$5M - $10M USD</option>
+                <option value="50m">$10M - $50M USD</option>
+                <option value="100m">$50M - $100M USD</option>
+                <option value="100m+">Más de $100M USD</option>
+                <option value="nd">Prefiero no especificar</option>
+              </select>
+            </div>
+            <div class="form-field full">
+              <label>Descripción del proyecto / consulta <span class="required">*</span></label>
+              <textarea id="f_descripcion" placeholder="Describa brevemente su proyecto, el contexto legal actual y qué tipo de asesoría está buscando. Entre más detalle, mejor podremos evaluar su caso."></textarea>
+            </div>
+            <div class="form-field">
+              <label>Urgencia del mandato</label>
+              <select id="f_urgencia">
+                <option value="" disabled selected>Seleccione</option>
+                <option value="inmediato">Inmediato (menos de 2 semanas)</option>
+                <option value="mes">En el próximo mes</option>
+                <option value="trimestre">En los próximos 3 meses</option>
+                <option value="semestre">En los próximos 6 meses</option>
+                <option value="exploracion">Solo exploración inicial</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>¿Cómo nos encontró?</label>
+              <select id="f_origen">
+                <option value="" disabled selected>Seleccione</option>
+                <option value="referral">Referido por un cliente / colega</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="evento">Evento / Conferencia</option>
+                <option value="busqueda">Búsqueda en Google</option>
+                <option value="publicacion">Publicación / Artículo nuestro</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-submit">
+            <p class="form-notice">Sus datos son confidenciales y no se comparten con terceros. Esta consulta está protegida por secreto profesional.</p>
+            <button class="btn-primary" onclick="submitForm()">Enviar Solicitud →</button>
+          </div>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <span class="success-icon">◈</span>
+          <h3>Solicitud recibida</h3>
+          <p>Un socio de ICHS revisará su consulta y se pondrá en contacto en máximo <strong style="color:var(--gold)">48 horas hábiles</strong>.</p>
+          <br>
+          <p style="font-size:0.8rem; color:var(--slate)">Si requiere atención urgente, puede escribir directamente a <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0cdc1cec4c1d4cfd3e0c9c3c8d38eccc5c7c1cc">[email&#160;protected]</a> indicando el código de referencia que recibirá por email.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 ICHS Legal & Advisors.</span>
+      <div class="footer-legal"><a href="#">Privacidad</a><a href="#">Aviso Legal</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ─── Navigation ───
+  function navigate(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === page);
+    });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  // ─── Scroll nav effect ───
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // ─── Banner close ───
+  function closeBanner() {
+    document.getElementById('topBanner').style.display = 'none';
+    document.getElementById('mainNav').style.top = '0';
+  }
+
+  // ─── Resources filter ───
+  function filterResources(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.resource-card').forEach(card => {
+      card.style.display = (type === 'all' || card.dataset.type === type) ? '' : 'none';
+    });
+  }
+
+  // ─── Form submission ───
+  function submitForm() {
+    const required = ['f_nombre', 'f_email', 'f_cargo', 'f_empresa', 'f_pais', 'f_objetivo', 'f_descripcion'];
+    let valid = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = 'rgba(139,32,32,0.6)';
+        valid = false;
+      } else {
+        el.style.borderColor = '';
+      }
+    });
+    if (!valid) {
+      alert('Por favor complete todos los campos obligatorios
